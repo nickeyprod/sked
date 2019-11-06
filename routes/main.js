@@ -174,7 +174,6 @@ router.post("/auth", mid.notAuthorised, function(req, res, next) {
         res.statusMessage = "Error during searching user data";
         return res.send();
       } 
-      console.log(adminFound)
       if(adminFound && adminFound != null) {
         req.session.admin = true;
       }

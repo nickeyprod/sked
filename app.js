@@ -43,7 +43,6 @@ app.use(session({
 app.use(function(req, res, next) {
   res.locals.userId = req.session.userId;
   res.locals.admin = req.session.admin;
-  console.log("admin:", req.session.admin);
   next();
 });
 
