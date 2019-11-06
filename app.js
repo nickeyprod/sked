@@ -118,7 +118,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-const port = process.env.PORT ? process.env.port : 5000;
+const port = process.env.PORT ? process.env.PORT : 5000;
 
 // app will be listening on this port
 app.listen(port, () => {
