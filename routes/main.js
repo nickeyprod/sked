@@ -168,7 +168,7 @@ router.post("/auth", mid.notAuthorised, function(req, res, next) {
       res.statusMessage = "Check login and password";
       return res.send();
     }
-    Admin.find({userId: user._id}, function(err, admin) {
+    Admin.findOne({userId: user._id}, function(err, admin) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching user data";
