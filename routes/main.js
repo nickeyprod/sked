@@ -168,13 +168,14 @@ router.post("/auth", mid.notAuthorised, function(req, res, next) {
       res.statusMessage = "Check login and password";
       return res.send();
     }
-    Admin.findOne({userId: user._id}, function(err, admin) {
+    Admin.findOne({userId: user._id}, function(err, adminFound) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching user data";
         return res.send();
       } 
-      if(admin) {
+      console.log(adminFound)
+      if(adminFound && adminFound != null) {
         req.session.admin = true;
       }
       req.session.userId = user._id;
