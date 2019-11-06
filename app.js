@@ -6,8 +6,13 @@ const express = require('express'),
     // mid = require("./middleware/middleware");
 
 const app = express();
+let mongo_uri = process.env.MONGODB_URI;
 
-mongoose.connect("mongodb://localhost:27017/sked", { 
+if(mongo_uri == null || mongo_uri == "") {
+  mongo_uri = "mongodb://localhost:27017/sked";
+}
+
+mongoose.connect(mongo_uri, { 
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
