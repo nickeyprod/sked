@@ -1,0 +1,14 @@
+doctype html
+
+html(lang="ru")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    script(src="/static/js/distr/main.min.js" type="text/javascript")
+    link(rel="stylesheet", href="/static/css/distr/layout.min.css")
+    title БТ: #{title}
+    block head
+  body
+    include includes/header.pug
+    block content
+    include includes/footer.pug

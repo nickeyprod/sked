@@ -1,0 +1,8 @@
+node_modules
+gitignore
+
+public/css/*
+!public/css/distr
+
+public/js/*
+!public/js/distr

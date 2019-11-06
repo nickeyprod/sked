@@ -1,0 +1,14 @@
+extends ./layout
+
+block content
+  .general-container
+    .auth
+      label(for="login") Логин:
+      input(type="text" id="login" placeholder="Придумайте Логин")
+      label(for="pass1") Пароль:
+      input(type="password" id="pass1" placeholder="Придумайте Пароль")
+      label(for="pass2") Пароль повторно:
+      input(type="password" id="pass2" placeholder="Повторите Пароль")
+      button(class="auth-bt" id="authenticate-bt") Аутентификация
+  script.
+    const auth = new Authenticate();

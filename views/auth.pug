@@ -1,0 +1,13 @@
+extends ./layout
+
+block content
+  .general-container
+    .auth
+      label(for="login") Логин:
+      input(type="text" id="login" placeholder="Введите Логин")
+      label(for="pass") Пароль:
+      input(type="password" id="pass" placeholder="Введите Пароль")
+      button(class="auth-bt" id="auth-bt") Логин
+      p Пройти <a href="/authenticate">аутентификацию</a>, чтобы получить логин и пароль.
+  script.
+    const auth = new Auth();

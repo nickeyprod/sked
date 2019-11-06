@@ -1,0 +1,22 @@
+.mobile-menu
+  div(id="menuToggle")
+    input(type="checkbox")
+    span
+    span
+    span
+    ul(class="m-menu" id="menu")
+      li 
+        a(href="/") Главная
+      //- li
+        a(href="/sked") График дежурств
+      li 
+        a(href="/performances") Спектакли
+      li 
+        a(href="#" onclick="document.getElementById('mn0t').classList.toggle('show');") Еще
+        ul.menu-other(id="mn0t")
+          if !userId
+            li
+              a(href="/auth") Логин
+          if userId
+            li
+              a(href="/out") Выйти

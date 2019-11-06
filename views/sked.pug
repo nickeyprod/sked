@@ -1,0 +1,63 @@
+extends ./layout
+
+block head
+  script(src="/static/js/skedjs.js" type="text/javascript")
+
+block content
+
+  //- h2 График дежурств
+  br
+  table.sked-table-main
+    thead
+      tr
+        th №
+        th 1 Пн
+        th 2 Вт
+        th 3 Ср
+        th 4 Чт
+        th 5 Пт
+        th 6 Сб
+        th 7 Вс
+    tbody
+      tr
+        td Фамилия
+        td
+          select.shift-choose
+            option 8.30
+            option 16
+        td
+          select.shift-choose
+            option 8.30
+            option 16
+        td
+          select.shift-choose
+            option 8.30
+            option 16
+        td 
+          select.shift-choose
+            option 8.30
+            option 16
+        td 
+          select.shift-choose
+            option 8.30
+            option 16
+        td
+          select.shift-choose
+            option 8.30
+            option 16
+        td
+          select.shift-choose
+            option 8.30
+            option 16
+      tfoot
+        tr
+          td(colspan="8" id="sked-main-foot")
+            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt") Новый график
+
+  //- each dateObj in dates
+    span=dateObj.date
+  script.
+    window.onload = function() {
+      const SkedApp = new SkedApp();
+      SkedApp.init();
+    };
