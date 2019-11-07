@@ -96,7 +96,7 @@ router.post("/performances", function(req, res, next) {
       res.statusMessage = "OK";
       return res.send();
     });
-  } else {
+  } else if(!perfId && action === "create") {
     Performance.create({
       name: name,
       type: type,
