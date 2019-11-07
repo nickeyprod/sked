@@ -22,7 +22,11 @@ router.get("/performances", function(req, res, next) {
       return next(error);
     }
 
-    let perfsNum = {opera: perfNums[0].count, ballet: perfNums[1].count};
+    let perfsNum = {
+        opera: perfNums[0] ? perfNums[0].count : 0, 
+        ballet: perfNums[1] ? perfNums[1].count: 0
+      };
+   
 
     // make beautiful performances count
     for(let i=0; i<perfNums.length; i++) {
