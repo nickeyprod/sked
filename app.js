@@ -58,9 +58,11 @@ app.set("view engine", "pug");
 
 //require all routes files
 const mainRoutes = require('./routes/main.js');
+const materialsRoutes = require('./routes/materials.js');
 
 //make app use them
 app.use(mainRoutes);
+app.use("/materials", materialsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
