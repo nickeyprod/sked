@@ -22,15 +22,15 @@ router.get("/performances", function(req, res, next) {
       return next(error);
     }
 
-    let perfsNum = {opera: 0, ballet: 0};
-   
+    let perfsNum = {opera: perfNums[0].count, ballet: perfNums[1].count};
+
     // make beautiful performances count
     for(let i=0; i<perfNums.length; i++) {
-      if(perfNums[i]._id === "opera") {
-        perfsNum.opera++;
+      if(perfNums[i]._id == "opera") {
+        perfsNum.opera = perfNums[i].count;
       }
-      else if(perfNums[i]._id === "ballet") {
-        perfsNum.ballet++;
+      else if(perfNums[i]._id == "ballet") {
+        perfsNum.ballet = perfNums[i].count;
       }
     }
   
