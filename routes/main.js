@@ -51,7 +51,7 @@ router.post("/performances", function(req, res, next) {
   const type = req.body.type;
   const imgUrl = req.body.imgUrl;
   const acts = req.body.acts ? req.body.acts.split(",") : null;
-  const points = req.body.points ? JSON.parse(req.body.points) : null; 
+  const points = req.body.points ? JSON.parse(req.body.points) : {}; 
   const notes = req.body.notes;
   const perfId = req.body.perfId;
   const action = req.body.action;
@@ -70,7 +70,7 @@ router.post("/performances", function(req, res, next) {
       type: type, 
       imgUrl: imgUrl,
       acts: acts, 
-      points: points, 
+      points: points,
       notes: notes}}, function(err, status) {
         if(err) {
           res.status(500);
