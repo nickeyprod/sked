@@ -46,21 +46,25 @@ router.get("/performances", function(req, res, next) {
 
 // POST /perfomances
 router.post("/performances", function(req, res, next) {
+
   const name = req.body.name;
   const type = req.body.type;
   const imgUrl = req.body.imgUrl;
-  const acts = req.body.acts.split(",");
-  const points = JSON.parse(req.body.points);
+  const acts = req.body.acts ? req.body.acts.split(",") : null;
+  const points = req.body.points ? JSON.parse(req.body.points) : null; 
   const notes = req.body.notes;
   const perfId = req.body.perfId;
+  const action = req.body.action;
 
-  if(!name || !type || !acts) {
-    res.status(500);
-    res.statusMessage = "Incosistent data";
-    return res.send();
-
+  if(action !== "remove") {
+    if(!name || !type || !acts) {
+      res.status(500);
+      res.statusMessage = "Incosistent data";
+      return res.send();
+    }
   }
-  if(perfId) {
+
+  if(perfId && action === "update") {
     Performance.updateOne({_id: perfId}, {$set: {
       name: name, 
       type: type, 
@@ -77,6 +81,17 @@ router.post("/performances", function(req, res, next) {
         res.statusMessage = "OK";
         return res.send();
       });
+  } else if(perfId && action === "remove") {
+    Performance.deleteOne({_id: perfId}, function(err, result) {
+      if(err) {
+        res.status(500);
+        res.statusMessage = "Error during deleting performance";
+        return res.send()
+      }
+      res.status(200);
+      res.statusMessage = "OK";
+      return res.send();
+    });
   } else {
     Performance.create({
       name: name,
