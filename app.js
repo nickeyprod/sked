@@ -2,7 +2,9 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    favicon = require('serve-favicon'),
+    path = require('path');
     // mid = require("./middleware/middleware");
 
 const app = express();
@@ -39,6 +41,8 @@ app.use(session({
   })
 }));
 
+//use favicon.ico
+app.use(favicon(path.join(__dirname, 'public','imgs','sett.png')));
 
 app.use(function(req, res, next) {
   res.locals.userId = req.session.userId;

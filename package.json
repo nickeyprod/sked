@@ -16,7 +16,8 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "mongoose": "^5.7.1",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "del": "^5.1.0",
