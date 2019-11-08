@@ -55,10 +55,23 @@ router.post("/performances", function(req, res, next) {
   const type = req.body.type;
   const imgUrl = req.body.imgUrl;
   const acts = req.body.acts ? req.body.acts.split(",") : null;
-  const points = req.body.points ? JSON.parse(req.body.points) : {}; 
+  var points = JSON.parse(req.body.points); 
   const notes = req.body.notes;
   const perfId = req.body.perfId;
   const action = req.body.action;
+
+  function isEmpty(obj) {
+    for(var prop in obj) {
+      if(obj.hasOwnProperty(prop)) {
+        return false;
+      }
+    }
+    return JSON.stringify(obj) === JSON.stringify({});
+  }
+
+  if(isEmpty(points.leftSide) && isEmpty(points.rightSide)) {
+    points = "";
+  }
 
   if(action !== "remove") {
     if(!name || !type || !acts) {
