@@ -6,7 +6,8 @@ const express = require('express'),
       Sked = require("../models/sked"),
       User = require("../models/user"),
       Admin = require("../models/admin"),
-      Performance = require("../models/performance");
+      Performance = require("../models/performance"),
+      isObEmpty = require("../helpers/helpers").isObEmpty;
 
 // GET /
 router.get("/", function(req, res, next) {
@@ -49,28 +50,32 @@ router.get("/performances", function(req, res, next) {
 });
 
 // POST /perfomances
-router.post("/performances", function(req, res, next) {
+router.post("/performances", mid.isAdmin, function(req, res, next) {
 
   const name = req.body.name;
   const type = req.body.type;
   const imgUrl = req.body.imgUrl;
-  const acts = req.body.acts ? req.body.acts.split(",") : null;
-  var points = JSON.parse(req.body.points); 
+  const acts = req.body.acts ? req.body.acts.split(",") : "";
+  var points = req.body.points ? JSON.parse(req.body.points) : ""; 
   const notes = req.body.notes;
   const perfId = req.body.perfId;
   const action = req.body.action;
 
-  function isEmpty(obj) {
-    for(var prop in obj) {
-      if(obj.hasOwnProperty(prop)) {
-        return false;
+  if(isObEmpty(points.leftSide) && isObEmpty(points.rightSide)) {
+    points = "";
+  } else {
+    // if any side have empty points, delete them
+    for (const point in points.leftSide) {
+      if(points.leftSide[point].stalls == "/") {
+        delete points.leftSide[point];
       }
     }
-    return JSON.stringify(obj) === JSON.stringify({});
-  }
-
-  if(isEmpty(points.leftSide) && isEmpty(points.rightSide)) {
-    points = "";
+    
+    for(const point1 in points.rightSide) {
+      if(points.rightSide[point1].stalls == "/") {
+        delete points.rightSide[point1];
+      }
+    }
   }
 
   if(action !== "remove") {

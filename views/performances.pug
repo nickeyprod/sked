@@ -34,14 +34,14 @@ block content
           button(id="add-points" class="add-mini-btn") +
         label(for="perf-notes") Заметки:
         textarea(placeholder="Дополнительные заметки (необязательно)" id="perf-notes")
-        button(id="save-perf-btn" class="save-perf-btn") Сохранить
+        button(id="save-perf-btn" class="save-perf-btn") Создать
     .perf-card-back(id="card-back")
       .performance-card
         .for-close
           span(class="close-span" id="close-card-perf")
         h3(class="card-header" id="card-perf-name") 
         i &ndash; <span id="card-perf-type"></span>
-        img(class="perf-img" id="perf-img" src="")
+        img(class="perf-img" id="card-perf-img" src="")
         .main-info
           .card-acts(id="card-perf-acts")
           hr.break-card
@@ -75,8 +75,8 @@ block content
                 th Мш-на
             button(class="add-point-btn" id="add-right-pt-btn" style="float:right;margin-right: 14px;") +
         hr
-        p.total-points Всего точек: <span id="total-points-num">0</span>
-        button(class="accept-points" id="accept-points-btn") Подтвердить
+        p.total-points Всего точек: <span id="total-points-num">0 шт.</span>
+        //- button(class="accept-points" id="accept-points-btn") Подтвердить
     .watch-points-user-back(id="user-points-back")
       .user-points-modal
         .for-close
