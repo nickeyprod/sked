@@ -2,26 +2,145 @@ extends ../layout
 
 block content
   .general-container
-    h2 Немецкие обозначения
+    h2.header-german Немецкие обозначения
     table.german-notations-table
       tbody
-        tr
-          th(colspan="2") [OM] &ndash; ВЕРХНЯЯ МЕХАНИЗАЦИЯ 
-        tr
+        tr.main-divider
+          th(colspan="2") [OM] &ndash; ВЕРХНЯЯ МЕХАНИЗАЦИЯ
+        tr.language
           th German
           th Russian 
+        tr
+          th(colspan="2") 
         tr
           td [BB01] Beleuchterbrücke
           td [ПСоф01] Портальный софит
         tr
+          th(colspan="2")
+        tr.sub-main
           th Beleuchtergestelle
           th Софитные секции
         tr
           td [OL\xxx]-[OL\xxx]
           td [СЕК\xxx]-[СЕК\xxx]
-        tr
+        tr.sub-main
           th Flugwerke
           th Полётные устройства
         tr
           td [FW\x]-[FW\x]
           td [ПУ\x]-[ПУ\x]
+        tr.sub-main
+          th Gassenvorhangzuge
+          th Пролётные кулисы
+        tr
+          td [GVZ_rechts\xx]
+          td [ПК_чётные\xx]
+        tr
+          td [GVZ_links\xx]
+          td [ПК_нечётные\xx]
+        tr.sub-main
+          th Hinterbuhnenzuge
+          th ШтП арьер-зоны
+        tr
+          td [MZ_hinten_links\xxx]
+          td [ШтП_чётные\xxx]
+        tr
+          td [MZ_hinten_rechts\xxx]
+          td [ШтП_нечётные\xxx]
+        tr.sub-main
+          th Maschinenzuge_mit_MLT
+          th ШтП с кабельным барабаном
+        tr
+          td [MZ_mMLT_links\xxx]
+          td [ШтП_нечётные\xxx]
+        tr
+          td [MZ_mMLT_rechts\xxx]
+          td [ШтП_чётные\xxx]
+        tr.sub-main
+          th Maschinenzuge_ohne_MLT
+          th ШтП без кабельного барабана
+        tr
+          td [MZ_oMLT_rechts\xxx]
+          td [ШтП_чётные\xxx]
+        tr
+          td [MZ_oMLT_links\xxx]
+          td [ШтП_нечётные\xxx]
+        tr.sub-main
+          th Nullgassenzuge
+          th ШтП нулевого плана
+        tr
+          td [NGZ01(05)]
+          td [ШтП 05]
+        tr
+          td [NGZ02(06)]
+          td [ШтП 06]
+        tr.sub-main
+          th Panoramazuge
+          th Боковые ШтП
+        tr
+          td [PAZ_links\x]
+          td [БШтП_нечётные\x]
+        tr
+          td [PAZ_rechts\x]
+          td [БШтП_чётные\x]
+        tr.sub-main
+          th Punktzuge
+          th Индивидуальные подъёмы
+        tr
+          td [PZ_links\xx]
+          td [ИП_нечётные\xx]
+        tr
+          td [PZ_rechts\xxx]
+          td [ИП_чётные\xxx]
+        tr.sub-main
+          th Vorhange
+          th Занавесы
+        tr
+          td Deutscher Zug [01]
+          td Подъёмно-опускной [01]
+        tr
+          td Harlekinzug [02]
+          td Арлекин [02]
+        tr
+          td Schmuckvorhang [04]
+          td Живописный [04]
+        tr.sub-main
+          th Zwischenbuhnenzuge
+          th Промежуточные ШтП
+        tr
+          td [MZ_zw_links\xxx]
+          td [ШтП_левые\xxx]
+        tr
+          td [MZ_zw_rechts\xxx]
+          td [ШтП_правые\xxx]
+        tr.main-divider
+          th(colspan="2") [UM] &ndash; НИЖНЯЯ МЕХАНИЗАЦИЯ 
+        tr.sub-main 
+          th Buhnenpodien
+          th Сценические площадки
+        tr 
+          td [BP\x]
+          td [СП\x]
+        tr.sub-main
+          th Neigbare
+          th Наклонные планшеты
+        tr 
+          td [NG\x]
+          td [НП\x]
+        tr.sub-main
+          th Personenversenkung
+          th Базы люков-провалов
+        tr
+          td [PV\x]
+          td [БЛ\x]
+        tr.sub-main
+          th Unterflurfahrten
+          th Площадки арьер-зоны
+        tr
+          td [UF\x]
+          td [ВП\x]
+          
+
+
+        
+          
