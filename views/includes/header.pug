@@ -11,11 +11,11 @@
         a(href="/sked") График дежурств
       li 
         a(href="/performances") Спектакли
+      li
+        a(href="/materials") Материалы
       li 
         a(href="#" onclick="document.getElementById('mn0t').classList.toggle('show');") Еще
         ul.menu-other(id="mn0t")
-          li
-            a(href="/materials") Материалы
           if !userId
             li
               a(href="/auth") Логин

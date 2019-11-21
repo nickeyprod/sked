@@ -17,4 +17,10 @@ router.get("/german-notations", function(req, res, next) {
   return res.render("materials/german-notations", {title: "Немецкие обозначения"});
 });
 
+// GET /materials/prv-schema
+router.get("/prv-schema", function(req, res, next) {
+  return res.render("materials/prv-schema", {title: "Расположение ПРВ"});
+});
+
+
 module.exports = router;
