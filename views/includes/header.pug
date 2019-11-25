@@ -11,14 +11,31 @@
         a(href="/sked") График дежурств
       li 
         a(href="/performances") Спектакли
-      li
-        a(href="/materials") Материалы
       li 
         a(href="#" onclick="document.getElementById('mn0t').classList.toggle('show');") Еще
         ul.menu-other(id="mn0t")
+          li
+            a(href="/materials") Материалы
           if !userId
             li
               a(href="/auth") Логин
           if userId
             li
               a(href="/out") Выйти
+.usual-menu-container
+  div(id="usual-menu")
+    ul(class="usual-menu" id="usual-menu")
+      li 
+        a(href="/") Главная
+      //- li
+        a(href="/sked") График дежурств
+      li 
+        a(href="/performances") Спектакли
+      li
+        a(href="/materials") Материалы
+      if !userId
+        li
+          a(href="/auth") Логин
+      if userId
+        li
+          a(href="/out") Выйти
