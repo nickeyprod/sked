@@ -25,16 +25,18 @@ function minifyCSS(cb) {
 
 function concatJS(cb) {
   return src(["!public/js/main.js", "public/js/*.js"])
+    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(concat("main.js"))
-    .pipe(dest("public/js/"));
+    .pipe(uglify())
+    .pipe(rename("main.min.js"))
+    .pipe(sourcemaps.write("./maps"))
+    .pipe(dest("public/js/distr/"));
 }
 
 function minifyJS(cb) {
   return src("public/js/main.js")
-    .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(rename("main.min.js"))
-    .pipe(sourcemaps.write("./maps"))
     .pipe(dest("public/js/distr/"))
 }
 
@@ -45,7 +47,7 @@ function watchFiles(cb) {
   });
   JSwatcher.on("change", function(path, stats) {
     // concat and minify JS files
-    series(cleanJS, concatJS, minifyJS)();
+    series(cleanJS, concatJS)();
   });
 }
 
@@ -54,7 +56,7 @@ function cleanCSS(cb) {
 }
 
 function cleanJS(cb) {
-  return del(["public/js/distr/", "public/js/main.js"]);
+  return del(["public/js/distr/", "public/js/main.js", "public/js/maps"]);
 }
 
 exports.concatCSS = concatCSS;
