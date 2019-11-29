@@ -4,6 +4,7 @@ block content
   .back-of-search
     .general-container
       h2 Спектакли
+      img(src="/static/imgs/720.gif" class="preloader" id="preloader")
       p.total-perfs Оперных: #{perfsNum.opera} | Балетных: #{perfsNum.ballet} | Всего: #{performances.length}
       .searching
         input(type="text" id="search-perfs" class="search-perfs" placeholder="Начните вводить название")
@@ -101,7 +102,6 @@ block content
                   th Мш-на
           hr
           p.total-points Всего точек: <span id="total-user-points">0</span>
-
   script.
     const admin = "!{admin}";
     const Performace = new Performance();
