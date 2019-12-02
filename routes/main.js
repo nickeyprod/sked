@@ -173,16 +173,14 @@ router.get("/sked", function(req, res, next) {
 
 // POST /sked
 router.post("/sked", function(req, res, next) {
-  var startDate = new Date(2019, 9);
+  var startDate = new Date(req.body.year, req.body.month);
 
   var mainAsync = async () => {
 
     var calendates = await cDates.getDates(startDate);
-
-    return res.render("main", {
-      title: "График дежурств", 
-      calDates: calendates
-    });
+    res.status(200);
+    res.statusMessage = "OK";
+    return res.send(calendates);
   };
   mainAsync();
 });

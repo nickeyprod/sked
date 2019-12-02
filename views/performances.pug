@@ -44,7 +44,7 @@ block content
           h3(class="card-header" id="card-perf-name") 
           i &ndash; <span id="card-perf-type"></span>
           img(class="perf-img" id="card-perf-img" src="")
-          .main-info
+          .main-info(id="main-info")
             .card-acts(id="card-perf-acts")
             hr.break-card
             .points(id="card-perf-points")
@@ -105,3 +105,4 @@ block content
   script.
     const admin = "!{admin}";
     const Performace = new Performance();
+    updateBreadcrump();

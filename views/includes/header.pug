@@ -27,22 +27,22 @@
               a(href="/out") Выйти
 .usual-menu-container
   ul(class="usual-menu" id="usual-menu")
-    li 
+    li(title="Главная страница")
       img(src="/static/imgs/menu/house.png" class="menu-icon")
       a(href="/") Главная
     //- li
       a(href="/sked") График дежурств
-    li 
+    li(title="Список спектаклей, их длительность и заметки")
       img(src="/static/imgs/menu/music-player.png" class="menu-icon")
       a(href="/performances") Спектакли
-    li
+    li(title="Другие материалы по работе")
       img(src="/static/imgs/menu/book.png" class="menu-icon")
       a(href="/materials") Материалы
     if !userId
-      li
+      li(title="Войти в аккаунт")
         img(src="/static/imgs/menu/login.svg" class="menu-icon")
         a(href="/auth") Логин
     if userId
-      li
+      li(title="Выйти из аккаунта")
         img(src="/static/imgs/menu/logout.svg" class="menu-icon")
         a(href="/out") Выйти

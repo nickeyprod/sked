@@ -11,13 +11,13 @@ block content
     thead
       tr
         th №
-        th 1 Пн
-        th 2 Вт
-        th 3 Ср
-        th 4 Чт
-        th 5 Пт
-        th 6 Сб
-        th 7 Вс
+        th.weekdate 1 Пн
+        th.weekdate 2 Вт
+        th.weekdate 3 Ср
+        th.weekdate 4 Чт
+        th.weekdate 5 Пт
+        th.weekdate 6 Сб
+        th.weekdate 7 Вс
     tbody
       tr
         td Фамилия
@@ -52,12 +52,12 @@ block content
       tfoot
         tr
           td(colspan="8" id="sked-main-foot")
-            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt") Новый график
+            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt" id="new-sked") Новый график
 
   //- each dateObj in dates
     span=dateObj.date
   script.
     window.onload = function() {
-      const SkedApp = new SkedApp();
-      SkedApp.init();
+      const skedApp = new SkedApp();
+      skedApp.init();
     };

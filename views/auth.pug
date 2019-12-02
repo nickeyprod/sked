@@ -7,7 +7,7 @@ block content
       input(type="text" id="login" placeholder="Введите Логин")
       label(for="pass") Пароль:
       input(type="password" id="pass" placeholder="Введите Пароль")
-      button(class="auth-bt" id="auth-bt") Логин
+      button(class="auth-bt" id="auth-bt" title="Войти в аккаунт") Логин
       p Пройти <a href="/authenticate">аутентификацию</a>, чтобы получить логин и пароль.
   script.
     const auth = new Auth();

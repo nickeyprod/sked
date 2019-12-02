@@ -2,7 +2,6 @@ extends ../layout
 
 block content
   .general-container
-    h2 Материалы
     ul.materials-ul
       li
         a(href="/materials/german-notations") Немецкие обозначения
@@ -10,3 +9,6 @@ block content
         a(href="/materials/prv-schema") Расположение ПРВ
       li
         a(href="/materials/prompt-box") Суфлёрка
+  script.
+    //- update breadcrump current page
+    updateBreadcrump();
