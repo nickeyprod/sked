@@ -1,9 +1,19 @@
 const mongoose = require('mongoose');
 
 const SkedSchema = new mongoose.Schema({
-  dates: {
-    type: Object,
+  data: {
+    type: Array,
     required: true
+  },
+  from: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  to: {
+    type: String,
+    required: true,
+    unique: true
   }
 });
 

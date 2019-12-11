@@ -4,60 +4,55 @@ block head
   script(src="/static/js/skedjs.js" type="text/javascript")
 
 block content
-
-  //- h2 График дежурств
+  div.info-msg-done(id="info-msg-done")
   br
-  table.sked-table-main
-    thead
-      tr
-        th №
-        th.weekdate 1 Пн
-        th.weekdate 2 Вт
-        th.weekdate 3 Ср
-        th.weekdate 4 Чт
-        th.weekdate 5 Пт
-        th.weekdate 6 Сб
-        th.weekdate 7 Вс
-    tbody
-      tr
-        td Фамилия
-        td
-          select.shift-choose
-            option 8.30
-            option 16
-        td
-          select.shift-choose
-            option 8.30
-            option 16
-        td
-          select.shift-choose
-            option 8.30
-            option 16
-        td 
-          select.shift-choose
-            option 8.30
-            option 16
-        td 
-          select.shift-choose
-            option 8.30
-            option 16
-        td
-          select.shift-choose
-            option 8.30
-            option 16
-        td
-          select.shift-choose
-            option 8.30
-            option 16
+  .container-sked
+    .date
+      span График с 
+      .from
+        span.day(id="day-from")
+        span /
+        span.month(id="month-from")
+        span /
+        span.year(id="year-from")
+      span.dash-sp &ndash;
+      .to
+        span по 
+        span.day(id="day-to")
+        span /
+        span.month(id="month-to")
+        span /
+        span.year(id="year-to") 
+    table.sked-table-main
+      thead
+        tr
+          th №
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+          th.weekdate
+      tbody(id="sked-main-tb")
       tfoot
         tr
-          td(colspan="8" id="sked-main-foot")
-            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt" id="new-sked") Новый график
-
-  //- each dateObj in dates
-    span=dateObj.date
+          td(colspan="16" id="sked-main-foot")
+            button(title="Посмотреть предыдущий график" class="new-sked-bt" id="prev-sked-bt" style="float:left;") Предыдущий график
+            button(title="Посмотреть следующий график" class="new-sked-bt" id="next-sked-bt" style="float:left;display:none;") Следующий график
+            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt" id="new-sked-bt" style="float:right;display:none;") Новый график
+            //- button(title="Сохранить данный график в базу" class="new-sked-bt" id="save-sked-bt" style="float:right;display:none;")
   script.
     window.onload = function() {
-      const skedApp = new SkedApp();
+      var skedApp = new SkedApp();
+      skedApp.workers = !{JSON.stringify(workers)};
+      skedApp.skeds = !{JSON.stringify(skeds)};
       skedApp.init();
     };

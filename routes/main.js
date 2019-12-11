@@ -160,31 +160,180 @@ router.post("/perf-search", function(req, res, next) {
 
 // GET /sked
 router.get("/sked", function(req, res, next) {
-   // find sked by date day
-   Sked.find({date: 10}, function (err, skeds) {
+  User.find({}, function(err, workers) {
     if(err) {
-      var error = new Error("Error searching sked");
+      var error = new Error("Error searching users");
       return next(error);
     }
-    console.log(skeds);
-    return res.render("sked", {title: "График дежурств"})
+    // find sked by date day
+    Sked.find({}).limit(50).exec(function (err, skeds) {
+      if(err) {
+        var error = new Error("Error searching sked");
+        return next(error);
+      }
+      return res.render("sked", {title: "График дежурств", workers: workers, skeds: skeds})
+    });
   });
 });
 
 // POST /sked
 router.post("/sked", function(req, res, next) {
-  var startDate = new Date(req.body.year, req.body.month);
 
-  var mainAsync = async () => {
+  if(req.body.from == "LAST") {
+    Sked.find({}).sort({_id:-1}).limit(1).exec(function(err, sked) {
+      if(err) {
+        res.status(500);
+        res.statusMessage = "Error during searching last sked";
+        return res.send();
+      }
+      // find prev
+      Sked.findOne({to: sked[0].from}, function(err, prevSked) {
+        if(err) {
+          res.status(500);
+          res.statusMessage = "Error during searching previous sked";
+          return res.send();
+        }
+        // find next
+        Sked.findOne({from: sked.to}, function(err, nextSked) {
+          if(err) {
+            res.status(500);
+            res.statusMessage = "Error during searching previous sked";
+            return res.send();
+          }
+          const prev = prevSked ? true : false;
+          const next = nextSked ? true : false;
+          // get dates
+          var mainAsync = async () => {
+          var calendates = await cDates.getDates(new Date(sked[0].from));
+            res.status(200);
+            res.statusMessage = "FOUND";
+            return res.send({sked: sked[0], dates:calendates, prev: prev, next: next});
+          };
+          mainAsync();
+        });
+      });
+    });
+  }
 
-    var calendates = await cDates.getDates(startDate);
-    res.status(200);
-    res.statusMessage = "OK";
-    return res.send(calendates);
-  };
-  mainAsync();
+  else if (req.body.to) {
+    Sked.findOne({to: req.body.to}, function(err, sked) {
+      if(err) {
+        res.status(500);
+        res.statusMessage = "Error during searching sked";
+        return res.send();
+      }
+      // find previous
+      Sked.findOne({to: sked.from}, function(err, prevSked) {
+        if(err) {
+          res.status(500);
+          res.statusMessage = "Error during searching previous sked";
+          return res.send();
+        }
+        // find next
+        Sked.findOne({from: sked.to}, function(err, nextSked) {
+          if(err) {
+            res.status(500);
+            res.statusMessage = "Error during searching previous sked";
+            return res.send();
+          }
+          const prev = prevSked ? true : false;
+          const next = nextSked ? true : false;
+            // get dates
+          var mainAsync = async () => {
+            var calendates = await cDates.getDates(new Date(sked.from));
+            res.status(200);
+            res.statusMessage = "FOUND";
+            return res.send({sked: sked, dates:calendates, prev: prev, next: next});
+          };
+          mainAsync();
+        });
+      });
+    });
+  }
+  else {
+    Sked.findOne({from: req.body.from}, function(err, sked) {
+      if(err) {
+        res.status(500);
+        res.statusMessage = "Error during searching sked";
+        return res.send();
+      }
+      // if no sked found, return just dates
+      if(!sked) {
+        // get dates
+        var mainAsync = async () => {
+          var calendates = await cDates.getDates(new Date(req.body.from));
+          res.status(200);
+          res.statusMessage = "FOUND";
+          return res.send({from: req.body.from, dates: calendates});
+        };
+        mainAsync();
+      } else {
+        // find previous
+        Sked.findOne({to: sked.from}, function(err, prevSked) {
+          if(err) {
+            res.status(500);
+            res.statusMessage = "Error during searching previous sked";
+            return res.send();
+          }
+          // find next
+          Sked.findOne({from: sked.to}, function(err, nextSked) {
+            if(err) {
+              res.status(500);
+              res.statusMessage = "Error during searching previous sked";
+              return res.send();
+            }
+            const prev = prevSked ? true : false;
+            const next = nextSked ? true : false;
+            // get dates
+            var mainAsync = async () => {
+              var calendates = await cDates.getDates(new Date(sked.from));
+              res.status(200);
+              res.statusMessage = "FOUND";
+              return res.send({sked: sked, dates:calendates, prev: prev, next: next});
+            };
+            mainAsync();
+          });
+        });
+      }
+    });
+  }
 });
 
+// POST /save-sked
+router.post("/save-sked", function(req, res, next) {
+  var skedState = JSON.parse(req.body.state);
+  console.log("to save:", skedState);
+  Sked.find({from: req.body.from, to: req.body.to}, function(err, sked) {
+    if(err) {
+      res.status(500);
+      res.statusMessage = "Error during searching by date";
+      return res.send();
+    }
+    if(sked.length == 0) {
+      Sked.create({data: skedState, from: req.body.from, to: req.body.to}, function(err, sked) {
+        if(err) {
+          res.status(500);
+          res.statusMessage = "Error during saving sked";
+          return res.send();
+        }
+        res.status(200);
+        res.statusMessage = "OK";
+        return res.send();
+      });
+    } else {
+      Sked.updateOne({from: req.body.from, to: req.body.to}, {$set: {data: skedState}} , function(err, result) {
+        if(err) {
+          res.status(500);
+          res.statusMessage = "Error during updating sked";
+          return res.send();
+        }
+        res.status(200);
+        res.statusMesssage = "OK";
+        return res.send();
+      });
+    }
+  }); 
+});
 
 // GET /auth
 router.get("/auth", mid.notAuthorised, function(req, res, next) {
