@@ -145,7 +145,7 @@ router.post("/perf-search", function(req, res, next) {
   }
   let query = new RegExp("^"+req.body.query, "i");
 
-  Performance.aggregate([{$match: {name: {$regex: query}}}]).exec(function(err, perfs) {
+  Performance.aggregate([{$match: {name: {$regex: query}}}, {$sort: {name: 1}}]).exec(function(err, perfs) {
     if(err) {
   
       res.status(500);
