@@ -42,7 +42,7 @@ app.use(session({
 }));
 
 //use favicon.ico
-app.use(favicon(path.join(__dirname, 'public','imgs','sett.svg')));
+// app.use(favicon(path.join(__dirname, 'public','imgs','sett.svg')));
 
 app.use(function(req, res, next) {
   res.locals.userId = req.session.userId;
@@ -61,12 +61,15 @@ app.use('/static', express.static('public'));
 app.set("view engine", "pug");
 
 //require all routes files
-const mainRoutes = require('./routes/main.js');
-const materialsRoutes = require('./routes/materials.js');
+const 
+  mainRoutes = require('./routes/main.js'),
+  materialsRoutes = require('./routes/materials.js'),
+  notesRoutes = require('./routes/notes.js');
 
 //make app use them
 app.use(mainRoutes);
 app.use("/materials", materialsRoutes);
+app.use("/notes", notesRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

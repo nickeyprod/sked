@@ -1,13 +1,14 @@
-const express = require('express'),
-      router = express.Router(),
-      Dates = require("calendar-dates"),
-      cDates = new Dates(),
-      mid = require("../middleware/middleware"),
-      Sked = require("../models/sked"),
-      User = require("../models/user"),
-      Admin = require("../models/admin"),
-      Performance = require("../models/performance"),
-      isObEmpty = require("../helpers/helpers").isObEmpty;
+const 
+  express = require('express'),
+  router = express.Router(),
+  Dates = require("calendar-dates"),
+  cDates = new Dates(),
+  mid = require("../middleware/middleware"),
+  Sked = require("../models/sked"),
+  User = require("../models/user"),
+  Admin = require("../models/admin"),
+  Performance = require("../models/performance"),
+  isObEmpty = require("../helpers/helpers").isObEmpty;
 
 // GET /
 router.get("/", function(req, res, next) {
@@ -49,8 +50,43 @@ router.get("/performances", function(req, res, next) {
   });
 });
 
+// GET /get-perfs-statistic
+router.get("/get-perfs-statistic", function(req, res, next) {
+  Performance.aggregate([{$group: {_id: "$type", count: {$sum: 1}}}])
+  .exec(function(err, perfNums) {
+    if(err) {
+      var error = new Error("Error counting performances");
+      return next(error);
+    }
+
+    let perfsNum = {
+        opera: perfNums[0] ? perfNums[0].count : 0, 
+        ballet: perfNums[1] ? perfNums[1].count: 0
+      };
+   
+
+    // make beautiful performances count
+    for(let i=0; i<perfNums.length; i++) {
+      if(perfNums[i]._id == "opera") {
+        perfsNum.opera = perfNums[i].count;
+      }
+      else if(perfNums[i]._id == "ballet") {
+        perfsNum.ballet = perfNums[i].count;
+      }
+    }
+  
+    res.send({perfsStat: perfsNum});
+  });
+});
+
 // POST /perfomances
 router.post("/performances", mid.isAdmin, function(req, res, next) {
+
+  if (req.session.admin !== true) {
+    res.status(403);
+    res.statusMessage = "Forbidden"; 
+    return res.send();
+  }
 
   const name = req.body.name;
   const type = req.body.type;
