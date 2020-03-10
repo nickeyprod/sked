@@ -6,14 +6,17 @@ block content
     .last-notes(id="last-notes")
       .note
         .user-info
-          span Nickolas:
+          span.username Nickolas:
         .user-message
           p Обычное сообщение от пользователя, ничего особенного. Особенно если оно тебе нужно.
         .actions
-          .up
-            img(src="static/imgs/handup.svg" style="color: green;" class="handup")
-          .down
-            img(src="static/imgs/handown.svg" class="handown")
+          .hands
+            .handup
+              img(class="hand-up" src="static/imgs/handup.svg")
+              .handup-num(id="handup-num") 2
+            .handown 
+              img(class="hand-down" src="static/imgs/handown.svg")
+              .handown-num(id="handown-num") 0
   script.
     //- const notes = new Notes();
 

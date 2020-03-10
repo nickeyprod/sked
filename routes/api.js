@@ -32,9 +32,12 @@ router.get("/get-perfs-statistic", function (req, res, next) {
     });
 });
 
-// GET api/am-i-admin
-router.get("/am-i-admin", function (req, res, next) {
-  return res.send({ result: req.session.admin === true ? true : false });
+// GET api/auth-status
+router.get("/auth-status", function (req, res, next) {
+  return res.send({ 
+    authorised: req.session.userId ? true : false,
+    admin: req.session.admin === true ? true : false 
+  });
 });
 
 module.exports = router;
