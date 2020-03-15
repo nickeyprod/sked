@@ -3,21 +3,42 @@ extends ../layout
 block content
   .general-container
     h2 Последние заметки
+    .upper-actions
+      label(for="sort-by") Сортировать по дате:
+        <br>
+        select(id="sort-by")
+          option(selected value="-1") Сначала новые 
+          option(value="1") Сначала старые 
+      button.new-note-btn(id="new-note-btn") Новая заметка
     .last-notes(id="last-notes")
-      .note
-        .user-info
-          span.username Nickolas:
-        .user-message
-          p Обычное сообщение от пользователя, ничего особенного. Особенно если оно тебе нужно.
-        .actions
-          .hands
-            .handup
-              img(class="hand-up" src="static/imgs/handup.svg")
-              .handup-num(id="handup-num") 2
-            .handown 
-              img(class="hand-down" src="static/imgs/handown.svg")
-              .handown-num(id="handown-num") 0
+      //- each note in notes
+      //-   .note
+      //-     .user-info
+      //-       span.username #{note.user.username}:
+      //-     .user-message
+      //-       p=note.text
+      //-     .actions
+      //-       span.note-date #{note._id.getTimestamp().getDate()}.#{note._id.getTimestamp().getDay().toString().length == 1 ? "0" + note._id.getTimestamp().getDay() : note._id.getTimestamp().getDay()}.#{note._id.getTimestamp().getFullYear()} в #{("0" + note._id.getTimestamp().getHours()).slice(-2)}:#{("0" + note._id.getTimestamp().getMinutes()).slice(-2)}
+      //-       .hands
+      //-         .handup
+      //-           img(class="hand-up" src="static/imgs/handup.svg")
+      //-           .handup-num(id="handup-num") 0
+      //-         .handown 
+      //-           img(class="hand-down" src="static/imgs/handown.svg")
+      //-           .handown-num(id="handown-num") 0
+      //- else
+      //-   p Заметок не найдено, напишите первым!
+
+  .background-modal(id="new-note-background")
+    .new-note
+      .for-close
+        span(class="close-span" id="close-new-note")
+      label(for="user-message") Ваша заметка:
+      textarea(id="user-message" name="note-text" cols="30" rows="10" type="text" placeholder="Введите текст заметки")
+      .for-button
+        button(id="publish-btn" class="publish-btn") Опубликовать
+      
   script.
-    //- const notes = new Notes();
+    const notes = new Notes();
 
     

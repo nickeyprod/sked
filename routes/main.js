@@ -12,7 +12,7 @@ const
 
 // GET /
 router.get("/", function(req, res, next) {
-  return res.render("main", {title: "Главная"});
+  return res.redirect("/performances");
 });
 
 // GET /performances
@@ -420,6 +420,11 @@ router.post("/authenticate", mid.notAuthorised, function(req, res, next) {
     res.statusMessage = "Autheticated";
     return res.send();
   });
+});
+
+// GET /about
+router.get("/about", function(req, res, next) {
+  return res.render("about", {title: "О Rocky"});
 });
 
 

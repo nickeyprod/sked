@@ -5,31 +5,36 @@
     span
     span
     ul(class="m-menu" id="menu")
-      li 
-        img(src="/static/imgs/menu/house.png" class="menu-icon")
-        a(href="/") Главная
+      //- li 
+      //-   img(src="/static/imgs/menu/house.png" class="menu-icon")
+      //-   a(href="/") Главная
       //- li
         a(href="/sked") График дежурств
       li 
         img(src="/static/imgs/menu/music-player.png" class="menu-icon")
         a(href="/performances") Спектакли
+      li
+        img(src="/static/imgs/menu/book.png" class="menu-icon")
+        a(href="/materials") Материалы
+      if !userId
+        li
+          img(src="/static/imgs/menu/login.svg" class="menu-icon")
+          a(href="/auth") Логин
+      if userId
+        li
+          img(src="/static/imgs/menu/logout.svg" class="menu-icon")
+          a(href="/out") Выйти
       li 
         img(src="/static/imgs/menu/more.png" class="menu-icon")
         a(href="#" onclick="document.getElementById('mn0t').classList.toggle('show');") Еще
         ul.menu-other(id="mn0t")
           li
-            a(href="/materials") Материалы
-          if !userId
-            li
-              a(href="/auth") Логин
-          if userId
-            li
-              a(href="/out") Выйти
+              a(href="/about") О Rocky
 .usual-menu-container
   ul(class="usual-menu" id="usual-menu")
-    li(title="Главная страница")
-      img(src="/static/imgs/menu/house.png" class="menu-icon")
-      a(href="/") Главная
+    //- li(title="Главная страница")
+    //-   img(src="/static/imgs/menu/house.png" class="menu-icon")
+    //-   a(href="/") Главная
     //- li
       a(href="/sked") График дежурств
     li(title="Список спектаклей, их длительность и заметки")
@@ -46,3 +51,6 @@
       li(title="Выйти из аккаунта")
         img(src="/static/imgs/menu/logout.svg" class="menu-icon")
         a(href="/out") Выйти
+    li
+      img(src="/static/imgs/menu/more.png" class="menu-icon")
+      a(href="/about") О Rocky
