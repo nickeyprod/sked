@@ -8,7 +8,7 @@ const express = require('express'),
     // mid = require("./middleware/middleware");
 
 const app = express();
-let mongo_uri = process.env.MONGODB_URI;
+let mongo_uri = process.env.DB_URI;
 
 if(mongo_uri == null || mongo_uri == "") {
   mongo_uri = "mongodb://localhost:27017/sked";
