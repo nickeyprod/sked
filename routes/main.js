@@ -185,13 +185,16 @@ router.get("/sked", function(req, res, next) {
 
 // POST /sked
 router.post("/sked", function(req, res, next) {
-
+ 
   if(req.body.from == "LAST") {
     Sked.find({}).sort({_id:-1}).limit(1).exec(function(err, sked) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching last sked";
         return res.send();
+      }
+      if (sked.length == 0) {
+
       }
       // find prev
       Sked.findOne({to: sked[0].from}, function(err, prevSked) {
@@ -201,7 +204,7 @@ router.post("/sked", function(req, res, next) {
           return res.send();
         }
         // find next
-        Sked.findOne({from: sked.to}, function(err, nextSked) {
+        Sked.findOne({from: sked[0].to}, function(err, nextSked) {
           if(err) {
             res.status(500);
             res.statusMessage = "Error during searching previous sked";

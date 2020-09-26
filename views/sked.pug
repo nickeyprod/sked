@@ -45,10 +45,10 @@ block content
       tfoot
         tr
           td(colspan="16" id="sked-main-foot")
-            button(title="Посмотреть предыдущий график" class="new-sked-bt" id="prev-sked-bt" style="float:left;") Предыдущий график
+            button(title="Посмотреть предыдущий график" class="new-sked-bt" id="prev-sked-bt" style="display:none;float:left;") Предыдущий график
             button(title="Посмотреть следующий график" class="new-sked-bt" id="next-sked-bt" style="float:left;display:none;") Следующий график
-            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt" id="new-sked-bt" style="float:right;display:none;") Новый график
-            //- button(title="Сохранить данный график в базу" class="new-sked-bt" id="save-sked-bt" style="float:right;display:none;")
+            button(title="Создать новый (пустой) график дежурств" class="new-sked-bt" id="new-sked-bt" style="float:right;") Новый график
+            button(title="Сохранить данный график в базу" class="new-sked-bt" id="save-sked-bt" style="float:right;display:none;")
   script.
     window.onload = function() {
       var skedApp = new SkedApp();
