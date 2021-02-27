@@ -1,0 +1,30 @@
+
+
+.prv-table, .prv-table td, .prv-table th {
+    border-collapse: collapse;
+    border: 1px solid #000
+}
+
+.prv-table {
+    font-size: 1.1em;
+    margin-top: 26px;
+    width: 100%;
+    text-align: center
+}
+
+.prv-table td, .prv-table th {
+    padding: 4px 10px
+}
+
+.prv-table .main-1 {
+    background-color: #ff984f;
+    color: #000
+}
+
+@media only screen and (min-width:660px) {
+    .prv-table {
+        max-width: 720px;
+        margin: 30px auto;
+        font-size: 1.2em
+    }
+}

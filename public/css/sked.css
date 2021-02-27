@@ -1,0 +1,55 @@
+
+.container-sked {
+    width: 86%;
+    max-width: 1023px;
+    margin: 0 auto
+}
+
+.date {
+    text-align: center;
+    font-size: 1.4em;
+    margin: 10px
+}
+
+.dash-sp {
+    margin: 0 8px
+}
+
+.from, .to {
+    display: inline-block
+}
+
+.sked-table-main td, .sked-table-main th {
+    padding: 4px
+}
+
+.sked-table-main, .sked-table-main td {
+    text-align: center;
+    border: 1px solid #333
+}
+
+.sked-table-main tfoot, .sked-table-main thead {
+    background-color: #333;
+    color: #fff
+}
+
+.sked-table-main select {
+    border: none;
+    background-color: #fff;
+    padding: 4px 0;
+    font-size: 1.1em
+}
+
+#sked-main-foot {
+    text-align: right
+}
+
+.new-sked-bt {
+    padding: 6px;
+    font-size: .9em;
+    color: #000
+}
+
+.info-msg-done {
+    display: none
+}

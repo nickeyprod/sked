@@ -1,0 +1,137 @@
+
+.last-notes {
+    margin-top: 28px
+}
+
+.note {
+    background-color: #f8fbf8bf;
+    padding: 22px 14px 10px;
+    color: #4a0909;
+    font-size: 1em;
+    margin: 10px auto;
+    border-top: 1px solid #7d6c6c;
+    border-bottom: 1px solid #7d6c6c
+}
+
+.username {
+    color: #98988f;
+    font-size: 1.15em;
+    font-weight: bolder
+}
+
+.user-message {
+    margin-left: 14px
+}
+
+.user-message p {
+    margin-top: 6px
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between
+}
+
+.hands {
+    background-color: #e3f9e3;
+    padding: 6px 14px;
+    border-radius: 10px;
+    display: flex
+}
+
+.handown, .handup {
+    font-weight: 600;
+    font-size: 1.2em;
+    color: #521f52;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding-right: 10px
+}
+
+.note-date {
+    color: gray;
+    font-size: .95em
+}
+
+.new-note-action {
+    margin-top: 10px;
+    text-align: center
+}
+
+.new-note-btn {
+    border-radius: 6px;
+    border: none;
+    padding: 8px 10px;
+    color: #2d4646;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #dceaea
+}
+
+.new-note-btn:hover {
+    background-color: #a8c6d8;
+    color: #fff
+}
+
+.handup {
+    border-right: 1px solid #b6b5b5
+}
+
+.hand-down, .hand-up {
+    cursor: pointer;
+    width: 24px;
+    margin: 0 8px;
+    transform: scale(1);
+    transition: transform .2s ease-in-out
+}
+
+.hand-down.anim-grow, .hand-up.anim-grow {
+    transform: scale(1.6)
+}
+
+.new-note {
+    background-color: #f8f8ff;
+    padding: 20px 26px 25px;
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column
+}
+
+.upper-actions {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.new-note label {
+    color: #625d5d
+}
+
+.new-note textarea {
+    font-size: 1.2em
+}
+
+.for-button {
+    display: block;
+    text-align: center;
+    margin-top: 16px
+}
+
+.publish-btn {
+    width: fit-content;
+    padding: 8px 10px;
+    color: #fff;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #b0da87
+}
+
+.publish-btn:hover {
+    background-color: #98c76a
+}

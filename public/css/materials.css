@@ -1,0 +1,22 @@
+
+.materials-ul {
+    margin: 15% auto 10px;
+    font-size: 1.4em
+}
+
+.materials-ul li {
+    margin: 4px 0
+}
+
+.materials-ul li a {
+    text-decoration: none;
+    font-weight: 700;
+    text-decoration: none;
+    color: #8e582a
+}
+
+@media only screen and (min-width:680px) {
+    .materials-ul {
+        margin: 50px 7% 10px
+    }
+}

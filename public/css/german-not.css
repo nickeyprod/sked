@@ -1,0 +1,51 @@
+
+.german-notations-table {
+    width: 100%
+}
+
+.german-notations-table, .german-notations-table td, .german-notations-table th, .german-notations-table tr {
+    border: 1px solid #000;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 20px;
+    word-break: break-word
+}
+
+.german-notations-table td, .german-notations-table th {
+    padding: 3px 3px
+}
+
+.german-notations-table .sub-main {
+    background-color: #dde9e9;
+    color: #3e3e3e
+}
+
+.sub-main th {
+    padding: 5px 4px
+}
+
+.main-divider {
+    background-color: #41a6e1;
+    color: #fff
+}
+
+.language {
+    background-color: #fffcd0;
+    color: #285b73
+}
+
+.main-divider th {
+    padding: 10px 0
+}
+
+@media only screen and (min-width:680px) {
+    .german-notations-table {
+        width: 100%;
+        max-width: 720px;
+        margin: 30px auto;
+        font-size: 1.2em
+    }
+    .header-german {
+        margin-top: 0
+    }
+}
