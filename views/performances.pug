@@ -14,7 +14,7 @@ block content
       .background-modal(id="background-modal")
         .new-performance
           .for-close
-            span(class="close-span" id="close-adding-perf")
+            img(src="/static/imgs/close_btn.png" class="close-span" id="close-adding-perf")
           label(for="perf-name") Название спектакля:
           input(type="text" id="perf-name" placeholder="Введите название")
           label(for="perf-type") Выберите:
@@ -40,23 +40,24 @@ block content
       .perf-card-back(id="card-back")
         .performance-card
           .for-close
-            span(class="close-span" id="close-card-perf")
+            img(src="/static/imgs/close_btn.png" class="close-span" id="close-card-perf")
           h3(class="card-header" id="card-perf-name") 
           i &ndash; <span id="card-perf-type"></span>
-          img(class="perf-img" id="card-perf-img" src="")
-          .main-info(id="main-info")
-            .card-acts(id="card-perf-acts")
-            hr.break-card
-            .points(id="card-perf-points")
-              h4 Точки подвеса
-              i &ndash; Отсутствуют
-            .notes
-              h4 Заметки
-              i(id="card-perf-notes") &ndash; Отсутствуют
+          .left-and-right
+            img(class="perf-img" id="card-perf-img" src="")
+            .main-info(id="main-info")
+              .card-acts(id="card-perf-acts")
+              hr.break-card
+              .points(id="card-perf-points")
+                h4 Точки подвеса
+                i &ndash; Отсутствуют
+              .notes
+                h4 Заметки
+                p(id="card-perf-notes") &ndash; Отсутствуют
       .perf-points-back(id="points-back")
         .points-modal
           .for-close
-            span(class="close-span" id="close-points-perf")
+            img(src="/static/imgs/close_btn.png" class="close-span" id="close-points-perf")
           .points-division
             .left-side
               h5.side-mark Левая сторона
@@ -82,7 +83,8 @@ block content
       .watch-points-user-back(id="user-points-back")
         .user-points-modal
           .for-close
-            span(class="close-span" id="close-user-points")
+            img(src="/static/imgs/close_btn.png" class="close-span" id="close-user-points")
+            
           .points-division
             .left-side
               h5.side-mark Левая сторона

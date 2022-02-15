@@ -78,6 +78,11 @@
   border-radius: 10px 0 0 10px;
 }
 
+.left-and-right {
+  display: flex;
+  flex-direction: column;
+}
+
 .preloader {
   display: none;
   opacity: .7;
@@ -92,7 +97,7 @@
 }
 
 .back-of-search {
-  background-image: url("/static/imgs/backgr-bsh.jpg");
+  background-image: url("../../../../../static/imgs/backgr-bsh.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -240,24 +245,6 @@
   opacity: 1;
 }
 
-.close-span:after,
-.close-span:before {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 23px;
-  width: 2px;
-  background-color: #333;
-}
-
-.close-span:before {
-  transform: rotate(45deg);
-}
-
-.close-span:after {
-  transform: rotate(-45deg);
-}
-
 .perf-name-found {
   padding: 5px 8px;
   border-radius: 8px;
@@ -303,6 +290,7 @@
 .performance-card .main-info {
   padding: 16px 0 0;
   display: flex;
+  font-size: 1.1em;
   flex-direction: column;
 }
 
@@ -563,6 +551,10 @@
 }
 
 @media only screen and (min-width:680px) {
+  .left-and-right {
+    flex-direction: row;
+  }
+
   .general-container {
     width: 80%;
     max-width: 1023px;
@@ -585,15 +577,15 @@
 
   .performance-card .perf-img {
     max-width: 48%;
+    height: 100%;
     margin: 10px;
   }
 
   .performance-card .main-info {
     width: 45%;
-    padding: 17px 0 0;
+    padding: 17px 20px 0;
     display: inline-flex;
     flex-direction: column;
-    float: right;
   }
 
   .notes {

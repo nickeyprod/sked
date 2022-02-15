@@ -11,7 +11,7 @@ const app = express();
 let mongo_uri = process.env.MONGODB_URI;
 
 if(mongo_uri == null || mongo_uri == "") {
-  mongo_uri = "mongodb://localhost:27017/sked";
+  mongo_uri = require('./secret.json').MONGO_URI;
 }
 
 mongoose.connect(mongo_uri, { 
