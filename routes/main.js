@@ -52,18 +52,16 @@ router.get("/performances", function(req, res, next) {
 
 // POST /perfomances
 router.post("/performances", mid.isAdmin, function(req, res, next) {
-
   if (req.session.admin !== true) {
     res.status(403);
     res.statusMessage = "Forbidden"; 
     return res.send();
   }
-
   const name = req.body.name;
   const type = req.body.type;
   const imgUrl = req.body.imgUrl;
-  const acts = req.body.acts ? req.body.acts.split(",") : "";
-  var points = req.body.points ? JSON.parse(req.body.points) : ""; 
+  const acts = req.body.acts;
+  var points = req.body.points; 
   const notes = req.body.notes;
   const perfId = req.body.perfId;
   const action = req.body.action;
@@ -84,7 +82,6 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
       }
     }
   }
-
   if(action !== "remove") {
     if(!name || !type || !acts) {
       res.status(500);
@@ -144,7 +141,6 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
 
 // POST /perf-search
 router.post("/perf-search", function(req, res, next) {
-
   if(!req.body.query) {
     res.status(500);
     res.statusMessage = "Bad request, search query absent";
@@ -312,7 +308,6 @@ router.post("/sked", function(req, res, next) {
 // POST /save-sked
 router.post("/save-sked", function(req, res, next) {
   var skedState = JSON.parse(req.body.state);
-  console.log("to save:", skedState);
   Sked.find({from: req.body.from, to: req.body.to}, function(err, sked) {
     if(err) {
       res.status(500);
@@ -415,12 +410,17 @@ router.post("/authenticate", mid.notAuthorised, function(req, res, next) {
   }
   User.registerNew({username: req.body.login, pass: req.body.pass1}, function(err, user) {
     if(err || !user) {
+      if (err.code == 11000) {
+        res.status(500);
+        res.statusMessage = "Duplicate";
+        return res.send();
+      }
       res.status(500);
       res.statusMessage = "Error during authenticating";
       return res.send();
-    }
+    } 
     res.status(200);
-    res.statusMessage = "Autheticated";
+    res.statusMessage = "Authenticated";
     return res.send();
   });
 });
