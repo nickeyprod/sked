@@ -59,7 +59,9 @@ router.get("/ical", function(req, res, next) {
       const calDataStart = data[key].start;
 
       if (calDataStart.getFullYear() == year && calDataStart.getMonth() == month) {
-        currMonthsEvents.push(data[key]);
+        currMonthsEvents.push(
+          data[key]
+        );
       }
     }
     return res.send({evts: currMonthsEvents });

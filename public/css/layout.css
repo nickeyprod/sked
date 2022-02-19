@@ -239,6 +239,7 @@
   margin-left: 93%;
   width: 32px;
   opacity: .3;
+  margin: -12px 5px -15px 94%;
 }
 
 .close-span:hover {
@@ -548,6 +549,24 @@
   color: #fff;
   margin-left: 30px;
   margin-top: 22px;
+}
+
+.now-on-stage {
+  font-size: 1.12em;
+  background-color: #686766;
+  width: fit-content;
+  padding: 2px 10px;
+  color: white;
+  border-radius: 8px;
+  /* white-space: nowrap; */
+  /* text-overflow: clip; */
+  /* max-width: 100%; */
+  box-sizing: border-box;
+  /* overflow: auto;  */
+}
+
+.now-on-stage::-webkit-scrollbar {
+  display: none;
 }
 
 @media only screen and (min-width:680px) {
