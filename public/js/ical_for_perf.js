@@ -30,7 +30,7 @@ class iCal {
         const resp = await request("/api/ical/stage", "GET");
         if (resp.status !== 200) {
             clearInterval(this.intId);
-            this.nowOnStage.textContent = "?";
+            this.nowOnStage.textContent = "Нет данных";
         }
         const data = await resp.json();
         const evts = data.evts;
