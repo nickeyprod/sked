@@ -1,13 +1,11 @@
 class iCal {
     constructor() {
-        this.today = new Date(Date.now());
+
         this.intId = null;
         this.nowOnStage = document.getElementById("now-on-stage");
-        this.divScroll = document.getElementById("div-scroll"); 
         window.onload = () => {
             this.startPreloader();
             this.startUpdatingStageEvents();
-            // this.startScrolling();
         }
     }
 
@@ -72,10 +70,11 @@ class iCal {
     }
 
     getTodayEvents(events) {
+        const today = new Date(Date.now());
         const todayEvents = [];
 
         for(let i = 0; i < events.length; i++) {
-            if (new Date(events[i].start).getDate() == this.today.getDate()) {
+            if (new Date(events[i].start).getDate() == today.getDate()) {
                 todayEvents.push(events[i]);
             }
         }
@@ -83,11 +82,12 @@ class iCal {
     }
 
     getCurrEvent(todayEvents) {
+        const today = new Date(Date.now());
 
         for(let i = 0; i < todayEvents.length; i++) {
             const evStart = new Date(todayEvents[i].start).getTime();
             const evEnd = new Date(todayEvents[i].end).getTime();
-            const currTime = this.today.getTime();
+            const currTime = today.getTime();
 
             if (evStart < currTime && evEnd > currTime) {
                 return todayEvents[i];
@@ -99,6 +99,7 @@ class iCal {
     }
 
     getRusTime(time) {
+        time = new Date(time);
         let timeStr = time.getHours();
         let minutes = time.getMinutes();
         if ( minutes.toString().length == 1) {
@@ -130,33 +131,5 @@ class iCal {
             this.nowOnStage.textContent = str;
             if (str.length > 2) str = "";
         }, 500);
-    }
-
-    startScrolling() {
-        let prevNum = 0;
-        let firstTime = true;
-        let scrollStep = 1;
-
-        this.scrollInt = setInterval(() => { 
-            if (firstTime) {
-                this.divScroll.scrollLeft += scrollStep;
-                if (this.divScroll.scrollLeft != 0) {
-                    firstTime = false;
-                }
-            }
-            else if (prevNum < this.divScroll.scrollLeft) {
-                prevNum = this.divScroll.scrollLeft;
-                this.divScroll.scrollLeft += scrollStep;
-            } else if (prevNum == this.divScroll.scrollLeft) {
-                this.divScroll.scrollLeft -= scrollStep;
-            } else if (prevNum > this.divScroll.scrollLeft) {
-                prevNum = this.divScroll.scrollLeft;
-                this.divScroll.scrollLeft -= scrollStep;
-                if (this.divScroll.scrollLeft == 0) {
-                    this.divScroll.scrollLeft = scrollStep;
-                }
-            }
-        }, 50);
-
     }
 }

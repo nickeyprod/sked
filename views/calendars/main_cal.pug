@@ -5,12 +5,23 @@ block content
     h2 Календари Большого Театра
     .theatral-events
       .stage-events 
-        h3 Репертуарный план
-        span.ev-time Сейчас: 15:30 - 17:00
-        span.ev-msg Работы с проектором
+        .div-loader
+          h3 Репертуарный план
+          img(src="/static/imgs/loader_triangles.gif" class="cal-preloader" id="stage-preloader")
+        span.ev-time#stage-ev-time Сейчас: ...
+          
+        span.ev-msg#stage-ev-msg .....
       .teh-events
-        h3 Доп. технические работы
+        .div-loader
+          h3 Доп. технические работы
+          img(src="/static/imgs/loader_triangles.gif" class="cal-preloader" id="teh-preloader")
+        span.ev-time#teh-ev-time Сейчас: ...
+        span.ev-msg#teh-ev-msg .....
       .zgp-events 
-        h3 График погрузок и работ с ЗГП
+        .div-loader
+          h3 График погрузок и работ с ЗГП
+          img(src="/static/imgs/loader_triangles.gif" class="cal-preloader" id="load-preloader")
+        span.ev-time#load-ev-time Сейчас: ...
+        span.ev-msg#load-ev-msg .....
   script.
     const calendars = new Calendars();

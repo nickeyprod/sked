@@ -2,10 +2,9 @@ extends ./layout
 
 block content
   .back-of-search
-    //  onclick="window.location.href='/calendars'"
     .general-container
       h2 Спектакли
-      div(class="now-on-stage" id="div-scroll") Сейчас на сцене: <span id="now-on-stage"></span>
+      div(class="now-on-stage" id="div-scroll" onclick="window.location.href='/calendars'") Сейчас на сцене: <span id="now-on-stage"></span>
       img(src="/static/imgs/720.gif" class="preloader" id="preloader")
       p.total-perfs Оперных: #{perfsNum.opera} | Балетных: #{perfsNum.ballet} | Всего: #{performances.length}
       .searching

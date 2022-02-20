@@ -64,30 +64,20 @@ router.get("/ical/teh-job", function (req, res, next) {
       console.error(err);
       return { error: "Error requesting or parsing calendar" };
     }
-    const today = new Date(Date.now());
-    const year = today.getFullYear();
-    const month = today.getMonth();
-    const currMonthsEvents = [];
-
-    for (let key in data) {
-
-      const calDataStart = new Date(data[key].start);
-
-      if (calDataStart.getFullYear() == year && calDataStart.getMonth() == month) {
-        currMonthsEvents.push(
-          data[key]
-        );
-      }
-    }
-    return res.send({ evts: currMonthsEvents });
+    return res.send({ evts: data });
   });
 });
 
 // GET /api/ical/load - Events on ЗГП
 router.get("/ical/load", function (req, res, next) {
   const calURL = 'https://calendar.google.com/calendar/ical/4ll36qkg9m6dld63q95c3dgl2s@group.calendar.google.com/public/basic.ics';
-
-  res.send({ evts: currMonthsEvents });
+  ical.async.fromURL(calURL, {}, (err, data) => {
+    if (err) {
+      console.error(err);
+      return { error: "Error requesting or parsing calendar" };
+    }
+    return res.send({ evts: data });
+  });
 });
 
 
