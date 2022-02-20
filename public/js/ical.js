@@ -111,8 +111,8 @@ class iCal {
 
     setEvent(evt) {
         clearInterval(this.intId);
-
-        if (evt && (evt.summary != "Hичего")) {
+ 
+        if (evt && (evt.summary != "Нет данных")) {
             const evStart = new Date(evt.start);
             const evEnd = new Date(evt.end);
             const time = "C " + this.getRusTime(evStart) + " до " + this.getRusTime(evEnd);
