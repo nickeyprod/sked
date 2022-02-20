@@ -506,6 +506,11 @@
     /* overflow: auto;  */
 }
 
+.now-on-stage:hover {
+    background-color: #b1b0af;
+    cursor: pointer;
+}
+
 .now-on-stage::-webkit-scrollbar {
     display: none;
 }

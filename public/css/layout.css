@@ -53,6 +53,43 @@
     border-radius: 18px;
   }
 }
+.theatral-events {
+  display: flex;
+  flex-direction: column;
+}
+
+.theatral-events > div {
+  margin: 20px;
+  background-color: rgb(203, 220, 251);
+  padding: 5px 20px 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ev-time,
+.ev-msg {
+  padding: 2px 6px;
+  font-size: 1.1em;
+}
+
+.ev-time {
+  margin-bottom: 4px;
+  font-style: italic;
+}
+
+.ev-msg {
+  margin-left: 10px;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  padding: 4px 12px;
+}
+
+@media only screen and (min-width:680px) {
+  .theatral-events {
+    flex-direction: row;
+  }
+}
 .breadcrumps {
   display: block;
   position: fixed;
@@ -563,6 +600,11 @@
   /* max-width: 100%; */
   box-sizing: border-box;
   /* overflow: auto;  */
+}
+
+.now-on-stage:hover {
+  background-color: #b1b0af;
+  cursor: pointer;
 }
 
 .now-on-stage::-webkit-scrollbar {

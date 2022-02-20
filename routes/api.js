@@ -36,19 +36,33 @@ router.get("/get-perfs-statistic", function (req, res, next) {
 
 // GET api/auth-status
 router.get("/auth-status", function (req, res, next) {
-  return res.send({ 
+  return res.send({
     authorised: req.session.userId ? true : false,
-    admin: req.session.admin === true ? true : false 
+    admin: req.session.admin === true ? true : false
   });
 });
 
-router.get("/ical", function(req, res, next) {
+// GET /api/ical/stage - Events on Stage
+router.get("/ical/stage", function (req, res, next) {
   const calURL = 'https://calendar.google.com/calendar/ical/cjnp0knhgufvq3q7hvs1343s1k@group.calendar.google.com/public/basic.ics';
 
-  ical.async.fromURL(calURL, {}, (err, data) => { 
+  ical.async.fromURL(calURL, {}, (err, data) => {
     if (err) {
       console.error(err);
-      return {error: "Error requesting or parsing calendar" };
+      return { error: "Error requesting or parsing calendar" };
+    }
+    return res.send({ evts: data });
+  });
+});
+
+// GET /api/ical/teh-jon - Additional Events on Stage
+router.get("/ical/teh-job", function (req, res, next) {
+  const calURL = 'https://calendar.google.com/calendar/ical/3visiklutvn26i0a4ug5is0ot0@group.calendar.google.com/public/basic.ics';
+
+  ical.async.fromURL(calURL, {}, (err, data) => {
+    if (err) {
+      console.error(err);
+      return { error: "Error requesting or parsing calendar" };
     }
     const today = new Date(Date.now());
     const year = today.getFullYear();
@@ -56,7 +70,8 @@ router.get("/ical", function(req, res, next) {
     const currMonthsEvents = [];
 
     for (let key in data) {
-      const calDataStart = data[key].start;
+
+      const calDataStart = new Date(data[key].start);
 
       if (calDataStart.getFullYear() == year && calDataStart.getMonth() == month) {
         currMonthsEvents.push(
@@ -64,8 +79,16 @@ router.get("/ical", function(req, res, next) {
         );
       }
     }
-    return res.send({evts: currMonthsEvents });
+    return res.send({ evts: currMonthsEvents });
   });
 });
+
+// GET /api/ical/load - Events on ЗГП
+router.get("/ical/load", function (req, res, next) {
+  const calURL = 'https://calendar.google.com/calendar/ical/4ll36qkg9m6dld63q95c3dgl2s@group.calendar.google.com/public/basic.ics';
+
+  res.send({ evts: currMonthsEvents });
+});
+
 
 module.exports = router;

@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .general-container
+    h2 Календари Большого Театра
+    .theatral-events
+      .stage-events 
+        h3 Репертуарный план
+        span.ev-time Сейчас: 15:30 - 17:00
+        span.ev-msg Работы с проектором
+      .teh-events
+        h3 Доп. технические работы
+      .zgp-events 
+        h3 График погрузок и работ с ЗГП
+  script.
+    const calendars = new Calendars();

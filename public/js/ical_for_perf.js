@@ -6,36 +6,77 @@ class iCal {
         this.divScroll = document.getElementById("div-scroll"); 
         window.onload = () => {
             this.startPreloader();
-            this.updateStageEvent();
+            this.startUpdatingStageEvents();
             // this.startScrolling();
         }
     }
 
+    startUpdatingStageEvents() {
+        this.updateStageEvent();
+        setInterval(() => {
+            this.updateStageEvent();
+        }, 60000);
+    }
+
     async updateStageEvent() {
-        const currMonthEvents = await this.getCurrMonthEvents();
+        const allEvents = await this.getCalEvents();
+        const currMonthEvents = this.getCurrMonthEvents(allEvents);    
         const todayEvents = this.getTodayEvents(currMonthEvents);
         const currEvent = this.getCurrEvent(todayEvents);
         this.setEvent(currEvent);
-
     }
 
-    async getCurrMonthEvents() {
-        const resp = await request("/api/ical", "GET");
+    async getCalEvents() {
+        const resp = await request("/api/ical/stage", "GET");
         if (resp.status !== 200) {
             clearInterval(this.intId);
             this.nowOnStage.textContent = "?";
         }
         const data = await resp.json();
         const evts = data.evts;
-        return evts
+        return evts;
     }
 
-    getTodayEvents(evts) {
+    getCurrYearEvents(events) {
+        const today = new Date(Date.now());
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const currYearEvents = [];
+
+        for (let key in events) {
+
+            const calDataStart = new Date(events[key].start);
+
+            if (calDataStart.getFullYear() == year) {
+                currYearEvents.push(events[key]);
+            }
+        }
+        return currYearEvents;
+    }
+
+    getCurrMonthEvents(events) {
+        const today = new Date(Date.now());
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const currMonthEvents = [];
+
+        for (let key in events) {
+
+            const calDataStart = new Date(events[key].start);
+
+            if (calDataStart.getFullYear() == year && calDataStart.getMonth() == month) {
+                currMonthEvents.push(events[key]);
+            }
+        }
+        return currMonthEvents;
+    }
+
+    getTodayEvents(events) {
         const todayEvents = [];
 
-        for(let i = 0; i < evts.length; i++) {
-            if (new Date(evts[i].start).getDate() == this.today.getDate()) {
-                todayEvents.push(evts[i]);
+        for(let i = 0; i < events.length; i++) {
+            if (new Date(events[i].start).getDate() == this.today.getDate()) {
+                todayEvents.push(events[i]);
             }
         }
         return todayEvents;

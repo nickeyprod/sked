@@ -64,12 +64,14 @@ app.set("view engine", "pug");
 const 
   mainRoutes = require('./routes/main'),
   materialsRoutes = require('./routes/materials'),
+  calendarsRoutes = require('./routes/calendars'),
   notesRoutes = require('./routes/notes'),
   apiRoutes = require('./routes/api');
 
 //make app use them
 app.use(mainRoutes);
 app.use("/materials", materialsRoutes);
+app.use("/calendars", calendarsRoutes);
 app.use("/notes", notesRoutes);
 app.use("/api", apiRoutes);
 
