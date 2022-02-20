@@ -119,7 +119,7 @@ class Calendars {
 
     setStageEvent(evt) {
         this.stageEvMsg.textContent = evt.summary;
-        if (evt.start && evt.end) {
+        if (evt.start != undefined && evt.end != undefined) {
             this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
         } else {
             this.stageEvTime.textContent = "Сейчас: ";
@@ -128,19 +128,19 @@ class Calendars {
 
     setTehEvent(evt) {
         this.tehEvMsg.textContent = evt.summary;
-        if (evt.start && evt.end) {
+        if (evt.start != undefined && evt.end != undefined) {
             this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
         } else {
-            this.stageEvTime.textContent = "Сейчас: ";
+            this.tehEvTime.textContent = "Сейчас: ";
         }
     }
 
     setLoadEvent(evt) {
         this.loadEvMsg.textContent = evt.summary;
-        if (evt.start && evt.end) {
+        if (evt.start != undefined && evt.end != undefined) {
             this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
         } else {
-            this.stageEvTime.textContent = "Сейчас: ";
+            this.loadEvTime.textContent = "Сейчас: ";
         }
     }
 
