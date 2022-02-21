@@ -108,7 +108,6 @@ class Calendars {
     
                 hour += 60000 * 60;
                 if (evStart < (currTime + hour) && evEnd > currTime) {
-                    console.log("next event", evts[i])
                     return evts[i];
                 }
       
@@ -148,7 +147,7 @@ class Calendars {
         if (evt.start != undefined && evt.end != undefined) {
             if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;
-                this.stageEvTime.textContent = "Далее: ";
+                this.stageEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
             } else {
                 this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
             }
@@ -162,7 +161,7 @@ class Calendars {
         if (evt.start != undefined && evt.end != undefined) {
             if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;
-                this.stageEvTime.textContent = "Далее: ";
+                this.tehEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
             } else {
                 this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
             }
@@ -176,7 +175,7 @@ class Calendars {
         if (evt.start != undefined && evt.end != undefined) {
             if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;
-                this.stageEvTime.textContent = "Далее: ";
+                this.loadEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);;
             } else {
                 this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
             }
