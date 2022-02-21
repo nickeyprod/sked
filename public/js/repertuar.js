@@ -6,7 +6,6 @@ class Repertuar {
 
     window.onload = () => {
       this.startAnimatingScroll();
-      // this.rollLine.scrollLeft = this.todaySquare.offsetLeft - 200;
     };
   }
 

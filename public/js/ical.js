@@ -97,14 +97,15 @@ class iCal {
 
         // Detect next event
         let hour = today.getTime() + 60000 * 60;
-        for (let b = 0; b < 6; b++) {
+        for (let b = 0; b < 4; b++) {
             hour += 60000 * 60;
             for(let i = 0; i < todayEvents.length; i++) {
                 const evStart = new Date(todayEvents[i].start).getTime();
+                const evEnd = new Date(evts[i].end).getTime();
                 const currTime = today.getTime();
     
                 hour += 60000 * 60;
-                if (evStart < (currTime + hour)) {
+                if (evStart < (currTime + hour) && evEnd > currTime) {
                     return todayEvents[i];
                 }
       
