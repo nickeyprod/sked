@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .general-container
-    h2 Календари Большого Театра
+    h2 Календари Большого
     .theatral-events
       .stage-events(onclick="window.location.href='/calendars/repertuar'")
         .div-loader
@@ -11,13 +11,13 @@ block content
         span.ev-time#stage-ev-time Сейчас: ...
           
         span.ev-msg#stage-ev-msg .....
-      .teh-events
+      .teh-events(onclick="window.location.href='/calendars/teh-jobs'")
         .div-loader
           h3 Доп. технические работы
           img(src="/static/imgs/loader_triangles.gif" class="cal-preloader" id="teh-preloader")
         span.ev-time#teh-ev-time Сейчас: ...
         span.ev-msg#teh-ev-msg .....
-      .zgp-events 
+      .zgp-events(onclick="window.location.href='/calendars/load-jobs'")
         .div-loader
           h3 График погрузок и работ с ЗГП
           img(src="/static/imgs/loader_triangles.gif" class="cal-preloader" id="load-preloader")

@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  .general-container
+    h2 Дополнительные технические работы
+    h1(style="font-size: 4em; margin: 0 0 20px;")=`${new Date(Date.now()).getFullYear()} г.`
+    .event-container(id="event-container")
+      each val, key in events 
+        if prevNum != new Date(val.start).getDate()
+          div.divider
+        div.event-square(id=`${new Date(val.start).getMonth()}-${new Date(val.start).getDate()}`)
+          .date-div 
+            if prevNum != new Date(val.start).getDate()
+              h1=`${new Date(val.start).getDate()} ${["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"][new Date(val.start).getMonth()]}.`
+              span(style="font-size: 1.2em")=`${["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"][new Date(val.start).getDay()]}`
+              -prevNum = new Date(val.start).getDate()
+          .info-div    
+            .time
+              span=`${new Date(val.start).getHours()}:${new Date(val.start).getMinutes() == 0 ? new Date(val.start).getMinutes().toString() + "0" : new Date(val.start).getMinutes()}` 
+              br 
+              span=`${new Date(val.end).getHours()}:${new Date(val.end).getMinutes() == 0 ? new Date(val.end).getMinutes().toString() + "0" : new Date(val.end).getMinutes()}`
+            .msg-div=val.summary
+  script.
+    let prevNum = 0;
+    const rep = new Repertuar();
