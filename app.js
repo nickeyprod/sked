@@ -85,6 +85,7 @@ app.use(function(req, res, next) {
 // error handler
 // define as the last app.use callback
 app.use(function(err, req, res, next) {
+  console.log(err);
   if(err.code && err.code.slice(0, 3) === "PUG") {
     res.status(500);
     err.statusCode = 500;

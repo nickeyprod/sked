@@ -11,13 +11,44 @@
     display: flex;
     margin: 4px 2px;
     flex-direction: column;
-    min-width: 140px;
     min-height: 100%;
+    min-width: 180px;
     font-size: 1.1em;
 }
 
 .event-square .info-div {
-    background-color: darkkhaki;
+    background-color: #d9d387;
     padding: 18px 16px;
     height: 100%;
+    box-sizing: border-box;
+
+}
+
+.date-div   {
+    min-height: 80px;
+}
+
+.date-div h1 {
+    margin: 10px 0 0;
+}
+
+.event-square .msg-div {
+    min-width: fit-content;
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #2e3621;
+}
+
+.info-div .time {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #6a1e1e;
+}
+
+.divider {
+    min-width: 2px;
+    height: 300px;
+    border-radius: 1px;
+    margin: 0px 10px;
+    background-color: #877f7f;
 }

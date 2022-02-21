@@ -33,7 +33,6 @@ router.get("/repertuar", function (req, res, next) {
     currYearEvents.sort((firstEl, secondEl) => {
       return firstEl.start - secondEl.start
     });
-
     return res.render("calendars/repertuar", { title: "Репертуарный план", events: currYearEvents });
 
   });

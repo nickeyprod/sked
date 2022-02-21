@@ -5,12 +5,22 @@
 }
 
 .theatral-events > div {
-    margin: 20px;
+    border-radius: 6px;
+    margin: 10px 20px;
     border: 1px solid #b7aeb1;
-    background-color: #efe499;
-    padding: 5px 20px 25px;
+    background-color: #bccef1;
+    padding: 0px 15px 15px;
     display: flex;
     flex-direction: column;
+}
+
+.div-loader h3 {
+    margin: 10px 0px;
+}
+
+.theatral-events > div:hover {
+    background-color: #f5f4ff;
+    cursor: pointer;
 }
 
 .ev-time,
