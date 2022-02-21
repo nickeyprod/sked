@@ -1111,6 +1111,28 @@
     font-size: 1.2em;
   }
 }
+.event-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: scroll;
+}
+
+.event-square {
+  display: flex;
+  margin: 4px 2px;
+  flex-direction: column;
+  min-width: 140px;
+  min-height: 100%;
+  font-size: 1.1em;
+}
+
+.event-square .info-div {
+  background-color: darkkhaki;
+  padding: 18px 16px;
+  height: 100%;
+}
 .container-sked {
   width: 86%;
   max-width: 1023px;

@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .general-container
+    h2 Репертуарный план
+    .event-container
+      each val, key in events 
+        div.event-square
+          .date-div 
+            -let prevNum = 0;
+            if prevNum != new Date(val.start).getDate()
+              h1=`${new Date(val.start).getDate()}`
+              -prevNum = new Date(val.start).getDate();
+          .info-div    
+            div=val.start 
+            div=val.end
+            div=val.summary
+  script.
+    getTime(timeStr) => {
+      let date = new Date(timeStr);
+      let str = date.getDate(); + "ЯНВ";
+      return str; 
+    }

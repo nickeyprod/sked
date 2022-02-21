@@ -3,6 +3,7 @@ class iCal {
 
         this.intId = null;
         this.nowOnStage = document.getElementById("now-on-stage");
+        this.nowOrNext = document.getElementById("now-or-next");
         window.onload = () => {
             this.startPreloader();
             this.startUpdatingStageEvents();
@@ -38,7 +39,6 @@ class iCal {
     getCurrYearEvents(events) {
         const today = new Date(Date.now());
         const year = today.getFullYear();
-        const month = today.getMonth();
         const currYearEvents = [];
 
         for (let key in events) {
@@ -94,6 +94,24 @@ class iCal {
             }
         }
 
+
+        // Detect next event
+        let hour = today.getTime() + 60000 * 60;
+        for (let b = 0; b < 6; b++) {
+            hour += 60000 * 60;
+            for(let i = 0; i < todayEvents.length; i++) {
+                const evStart = new Date(todayEvents[i].start).getTime();
+                const currTime = today.getTime();
+    
+                hour += 60000 * 60;
+                if (evStart < (currTime + hour)) {
+                    return todayEvents[i];
+                }
+      
+            }
+        }
+        
+
         return {summary: "Нет данных"};
 
     }
@@ -113,6 +131,12 @@ class iCal {
         clearInterval(this.intId);
  
         if (evt && (evt.summary != "Нет данных")) {
+            if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
+                // update Сейчас on Далее;
+                this.nowOrNext.textContent = "Далее на сцене:";
+            } else {
+                this.nowOrNext.textContent = "Сейчас на сцене:";
+            }
             const evStart = new Date(evt.start);
             const evEnd = new Date(evt.end);
             const time = "C " + this.getRusTime(evStart) + " до " + this.getRusTime(evEnd);
