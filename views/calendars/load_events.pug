@@ -16,9 +16,9 @@ block content
               -prevNum = new Date(val.start).getDate()
           .info-div    
             .time
-              span=`${new Date(new Date(val.start).toUTCString()).getHours()}:${new Date(val.start).getMinutes() == 0 ? new Date(val.start).getMinutes().toString() + "0" : new Date(val.start).getMinutes()}` 
+              span=`${new Date(val.start.getTime() + 10800000).getHours()}:${val.start.getMinutes() == 0 ? val.start.getMinutes().toString() + "0" : val.start.getMinutes()}` 
               br 
-              span=`${new Date(new Date(val.end).toUTCString()).getHours()}:${new Date(val.end).getMinutes() == 0 ? new Date(val.end).getMinutes().toString() + "0" : new Date(val.end).getMinutes()}`
+              span=`${new Date(val.end.getTime() + 10800000).getHours()}:${val.end.getMinutes() == 0 ? val.end.getMinutes().toString() + "0" : val.end.getMinutes()}`
             .msg-div=val.summary
   script.
     let prevNum = 0;
