@@ -144,12 +144,14 @@ class Calendars {
 
     setStageEvent(evt) {
         this.stageEvMsg.textContent = evt.summary;
+        const evStart = new Date(evt.start);
+        const evEnd = new Date(evt.end);
         if (evt.start != undefined && evt.end != undefined) {
-            if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
+            if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;
-                this.stageEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
+                this.stageEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
             } else {
-                this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
+                this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
             }
         } else {
             this.stageEvTime.textContent = "Сейчас: ";
@@ -158,12 +160,14 @@ class Calendars {
 
     setTehEvent(evt) {
         this.tehEvMsg.textContent = evt.summary;
+        const evStart = new Date(evt.start);
+        const evEnd = new Date(evt.end);
         if (evt.start != undefined && evt.end != undefined) {
-            if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
+            if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;
-                this.tehEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
+                this.tehEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
             } else {
-                this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
+                this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
             }
         } else {
             this.tehEvTime.textContent = "Сейчас: ";
@@ -173,11 +177,11 @@ class Calendars {
     setLoadEvent(evt) {
         this.loadEvMsg.textContent = evt.summary;
         if (evt.start != undefined && evt.end != undefined) {
-            if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
+            if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;
-                this.loadEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);;
+                this.loadEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);;
             } else {
-                this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
+                this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
             }
         } else {
             this.loadEvTime.textContent = "Сейчас: ";

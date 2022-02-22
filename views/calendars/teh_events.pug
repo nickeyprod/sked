@@ -12,13 +12,13 @@ block content
           .date-div 
             if prevNum != new Date(val.start).getDate()
               h1=`${new Date(val.start).getDate()} ${["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"][new Date(val.start).getMonth()]}.`
-              span(style="font-size: 1.2em")=`${["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"][new Date(val.start).getDay()]}`
+              span(style="font-size: 1.2em")=`${["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"][new Date(val.start).getDay()]}`
               -prevNum = new Date(val.start).getDate()
           .info-div    
             .time
-              span=`${new Date(val.start).getHours()}:${new Date(val.start).getMinutes() == 0 ? new Date(val.start).getMinutes().toString() + "0" : new Date(val.start).getMinutes()}` 
+              span=`${new Date(new Date(val.start).toUTCString()).getHours()}:${new Date(val.start).getMinutes() == 0 ? new Date(val.start).getMinutes().toString() + "0" : new Date(val.start).getMinutes()}` 
               br 
-              span=`${new Date(val.end).getHours()}:${new Date(val.end).getMinutes() == 0 ? new Date(val.end).getMinutes().toString() + "0" : new Date(val.end).getMinutes()}`
+              span=`${new Date(new Date(val.end).toUTCString()).getHours()}:${new Date(val.end).getMinutes() == 0 ? new Date(val.end).getMinutes().toString() + "0" : new Date(val.end).getMinutes()}`
             .msg-div=val.summary
   script.
     let prevNum = 0;
