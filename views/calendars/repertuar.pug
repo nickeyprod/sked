@@ -12,7 +12,7 @@ block content
           .date-div 
             if prevNum != new Date(val.start).getDate()
               h1=`${new Date(val.start).getDate()} ${["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"][new Date(val.start).getMonth()]}.`
-              span(style="font-size: 1.2em")=`${["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"][new Date(val.start).getDay()]}`
+              span(style="font-size: 1.2em")=`${["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"][new Date(val.start).getDay()]}`
               -prevNum = new Date(val.start).getDate()
           .info-div    
             .time
