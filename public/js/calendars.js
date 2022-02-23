@@ -176,6 +176,10 @@ class Calendars {
 
     setLoadEvent(evt) {
         this.loadEvMsg.textContent = evt.summary;
+        
+        const evStart = new Date(evt.start);
+        const evEnd = new Date(evt.end);
+
         if (evt.start != undefined && evt.end != undefined) {
             if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
                 // update Сейчас on Далее;

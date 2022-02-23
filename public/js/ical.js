@@ -4,6 +4,7 @@ class iCal {
         this.intId = null;
         this.nowOnStage = document.getElementById("now-on-stage");
         this.nowOrNext = document.getElementById("now-or-next");
+
         window.onload = () => {
             this.startPreloader();
             this.startUpdatingStageEvents();
@@ -14,15 +15,15 @@ class iCal {
         this.updateStageEvent();
         setInterval(() => {
             this.updateStageEvent();
-        }, 60000);
+        }, 120000);
     }
 
     async updateStageEvent() {
         const allEvents = await this.getCalEvents();
-        const currMonthEvents = this.getCurrMonthEvents(allEvents);    
-        const todayEvents = this.getTodayEvents(currMonthEvents);
-        const currEvent = this.getCurrEvent(todayEvents);
-        this.setEvent(currEvent);
+        const todayDate = new Date(Date.now());
+        const todayEvents = this.getTodayEvents(allEvents, todayDate);
+        const currEvent = this.getCurrEvent(todayEvents, todayDate);
+        this.setEvent(currEvent ? currEvent : { summary: "Нет данных" }, todayDate);
     }
 
     async getCalEvents() {
@@ -32,120 +33,78 @@ class iCal {
             this.nowOnStage.textContent = "? error ?";
         }
         const data = await resp.json();
-        const evts = data.evts;
-        return evts;
+        return data.evts;
     }
 
-    getCurrYearEvents(events) {
-        const today = new Date(Date.now());
-        const year = today.getFullYear();
-        const currYearEvents = [];
+    getTodayEvents(evts, todayDate) {
+        const todayEvts = [];
 
-        for (let key in events) {
-
-            const calDataStart = new Date(events[key].start);
-
-            if (calDataStart.getFullYear() == year) {
-                currYearEvents.push(events[key]);
+        for (let key in evts) {
+            const evStartDate = new Date(evts[key].start);
+            if (evStartDate.getFullYear() == todayDate.getFullYear() && evStartDate.getMonth() == todayDate.getMonth() && evStartDate.getDate() == todayDate.getDate()) {
+                todayEvts.push(evts[key]);
             }
         }
-        return currYearEvents;
+
+        return todayEvts;
     }
 
-    getCurrMonthEvents(events) {
-        const today = new Date(Date.now());
-        const year = today.getFullYear();
-        const month = today.getMonth();
-        const currMonthEvents = [];
-
-        for (let key in events) {
-
-            const calDataStart = new Date(events[key].start);
-
-            if (calDataStart.getFullYear() == year && calDataStart.getMonth() == month) {
-                currMonthEvents.push(events[key]);
-            }
-        }
-        return currMonthEvents;
-    }
-
-    getTodayEvents(events) {
-        const today = new Date(Date.now());
-        const todayEvents = [];
-
-        for(let i = 0; i < events.length; i++) {
-            if (new Date(events[i].start).getDate() == today.getDate()) {
-                todayEvents.push(events[i]);
-            }
-        }
-        return todayEvents;
-    }
-
-    getCurrEvent(todayEvents) {
-        const today = new Date(Date.now());
-
-        for(let i = 0; i < todayEvents.length; i++) {
+    getCurrEvent(todayEvents, todayDate) {
+        for (let i = 0; i < todayEvents.length; i++) {
             const evStart = new Date(todayEvents[i].start).getTime();
             const evEnd = new Date(todayEvents[i].end).getTime();
-            const currTime = today.getTime();
+            const currTime = todayDate.getTime();
 
             if (evStart < currTime && evEnd > currTime) {
                 return todayEvents[i];
             }
         }
 
+        return false;
+    }
 
-        // Detect next event
-        let hour = today.getTime();
+    detectNextEvent(todayEvents, todayDate) {
+        let hour = todayDate.getTime();
+
         for (let b = 0; b < 5; b++) {
-            hour +=  1000 * 60 * 60;     
-            for(let i = 0; i < todayEvents.length; i++) {
+            hour += 1000 * 60 * 60;
+            for (let i = 0; i < todayEvents.length; i++) {
                 const evStart = new Date(todayEvents[i].start).getTime();
                 const evEnd = new Date(todayEvents[i].end).getTime();
                 const currTime = today.getTime();
-    
+
+                console.log(evStart < currTime + hour);
+
                 if (evStart < (currTime + hour) && evEnd > (currTime + hour)) {
                     return todayEvents[i];
                 }
-      
+
             }
         }
-        
-
-        return {summary: "Нет данных"};
-
     }
 
     getRusTime(time) {
         time = new Date(time);
-        let timeStr = time.getHours();
-        let minutes = time.getMinutes();
-        if ( minutes.toString().length == 1) {
-            minutes = minutes.toString() + "0";
-        }
-        timeStr += ":" + minutes;
-        return timeStr;
+        return `${time.getHours()}:${time.getMinutes().toString().length == 1 ? time.getMinutes().toString() + "0" : time.getMinutes()}`;
     }
 
-    setEvent(evt) {
+    setEvent(evt, todayDate) {
+        
         clearInterval(this.intId);
- 
+
         if (evt && (evt.summary != "Нет данных")) {
-            if (new Date(evt.start).getTime() > new Date(Date.now()).getTime()) {
+            if (new Date(evt.start).getTime() > todayDate.getTime()) {
                 // update Сейчас on Далее;
                 this.nowOrNext.textContent = "Далее на сцене:";
             } else {
                 this.nowOrNext.textContent = "Сейчас на сцене:";
             }
-            const evStart = new Date(evt.start);
-            const evEnd = new Date(evt.end);
-            const time = "C " + this.getRusTime(evStart) + " до " + this.getRusTime(evEnd);
+            const time = "C " + this.getRusTime(evt.start) + " до " + this.getRusTime(evt.end);
             this.nowOnStage.textContent = time + " - " + evt.summary;
 
         } else {
             this.nowOnStage.textContent = evt.summary;
         }
-
     }
 
     startPreloader() {
@@ -154,6 +113,6 @@ class iCal {
             str += ".";
             this.nowOnStage.textContent = str;
             if (str.length > 2) str = "";
-        }, 500);
+        }, 400);
     }
 }
