@@ -390,9 +390,6 @@ class Performance {
 
   fillPointsEditModal = (points = {}) => {
     // e = points
-    // if (!points) {
-    //   points = {};
-    // }
 
     // let t, o, i, s, l, a = document.getElementById("left-table").firstChild,
     // d = document.getElementById("right-table").firstChild;
@@ -464,6 +461,7 @@ class Performance {
     }
 
     for (const rightPoint in points.rightSide) {
+      
       if (this.isEmpty(points.rightSide[rightPoint])) continue;
       // let a, r, c;
       let input, sp, input2;
@@ -508,13 +506,12 @@ class Performance {
           this.totalPointsNum--;
           this.totalPointsSpan.textContent = this.totalPointsNum + " шт.";
         }
-
-        td3.appendChild(delSpan);
-        trLeft.appendChild(td1);
-        trLeft.appendChild(td2);
-        trLeft.appendChild(td3);
-        rightTableFirstChild.appendChild(trRight);
       }
+      td3.appendChild(delSpan);
+      trRight.appendChild(td1);
+      trRight.appendChild(td2);
+      trRight.appendChild(td3);
+      rightTableFirstChild.appendChild(trRight);
     }
   };
 
