@@ -30,29 +30,24 @@ class Calendars {
         }, 60000);
     }
 
-    showTehPreloader() {
-        this.tehPreloader.style.display = "block";
+    showPreloader(type) {
+        if (type == "stage") {
+            this.stagePreloader.style.display = "block";
+        } else if (type == "tech") {
+            this.tehPreloader.style.display = "block";
+        } else if (type == "load") {
+            this.loadPreloader.style.display = "block";
+        }
     }
 
-    showStagePreloader() {
-        this.stagePreloader.style.display = "block";
-    }
-
-    showLoadPreloader() {
-        this.loadPreloader.style.display = "block";
-    }
-
-    hideTehPreloader() {
-        this.tehPreloader.style.display = "none";
-    }
-
-    hideLoadPreloader() {
-        this.loadPreloader.style.display = "none";
-    }
-
-    hideStagePreloader() {
-        this.stagePreloader.style.display = "none";
-
+    hidePreloader(type) {
+        if (type == "stage") {
+            this.stagePreloader.style.display = "none";
+        } else if (type == "tech") {
+            this.tehPreloader.style.display = "none";
+        } else if (type == "load") {
+            this.loadPreloader.style.display = "none";
+        }
     }
 
     // "/api/ical/stage"
@@ -62,133 +57,132 @@ class Calendars {
             console.error("Error uploading calendar events");
         }
         const data = await resp.json();
-        const evts = data.evts;
-        return evts;
+        return data.evts;
     }
 
-    getTodayEvents(events) {
-
-        const todayDate = new Date(Date.now());
-        const today = todayDate.getDate();
-        const month = todayDate.getMonth();
-        const year = todayDate.getFullYear();
+    getTodayEvents(evts, todayDate) {
         const todayEvents = [];
-        
 
-        for(let key in events) {
-            const evStart = new Date(events[key].start);
-            if (evStart.getFullYear() == year && evStart.getMonth() == month && evStart.getDate() == today) {
-                todayEvents.push(events[key]);
+        for (let key in evts) {
+            const evStart = new Date(evts[key].start);
+            if (evStart.getFullYear() == todayDate.getFullYear() && evStart.getMonth() == todayDate.getMonth() && evStart.getDate() == todayDate.getDate()) {
+                todayEvents.push(evts[key]);
             }
         }
         return todayEvents;
     }
 
-    getCurrentEvent(evts) {
-        const today = new Date(Date.now());
+    getCurrentEvent(evts, todayDate) {
 
         for (let i = 0; i < evts.length; i++) {
             const evStart = new Date(evts[i].start).getTime();
             const evEnd = new Date(evts[i].end).getTime();
-            const currTime = today.getTime();
+            const currTime = todayDate.getTime();
 
             if (evStart < currTime && evEnd > currTime) {
                 return evts[i];
             }
         }
+        return false;
+    }
 
+    getNextEvent(evts, todayDate) {
         // Detect next event
-        let hour = today.getTime();
+        let todayPlusHour = todayDate.getTime();
         for (let b = 0; b < 5; b++) {
-            hour +=  1000 * 60 * 60;     
+            todayPlusHour += 1000 * 60 * 60;
 
-            for(let i = 0; i < evts.length; i++) {
+            for (let i = 0; i < evts.length; i++) {
                 const evStart = new Date(evts[i].start).getTime();
                 const evEnd = new Date(evts[i].end).getTime();
-                const currTime = today.getTime();
-    
-                if (evStart < (currTime + hour) && evEnd > (currTime + hour)) {
+
+                if (evStart < todayPlusHour && evEnd > todayPlusHour) {
                     return evts[i];
                 }
-      
+
             }
         }
-
-        return {summary: "Нет данных"};
     }
 
     async updateAllEvents() {
-        this.showStagePreloader();
+        this.showPreloader("stage");
         const allStageEvents = await this.getCalEvents(this.stageEvURL);
-        this.showTehPreloader();
+        this.showPreloader("tech");
         const allTehEvents = await this.getCalEvents(this.tehEvURL);
-        this.showLoadPreloader();
+        this.showPreloader("load");
         const allLoadEvents = await this.getCalEvents(this.loadEvURL);
 
-        const todayStageEvents = this.getTodayEvents(allStageEvents);
-        const currStageEvent = this.getCurrentEvent(todayStageEvents);
-        this.setStageEvent(currStageEvent);
-        this.hideStagePreloader();
+        const noData = { summary: "Нет данных" };
+        const todayDate = new Date(Date.now());
 
-        const todayTehEvents = this.getTodayEvents(allTehEvents);
-        const currTehEvent = this.getCurrentEvent(todayTehEvents);
-        this.setTehEvent(currTehEvent);
-        this.hideTehPreloader();
-
-        const todayLoadEvents = this.getTodayEvents(allLoadEvents);
-        const currLoadEvent = this.getCurrentEvent(todayLoadEvents);
-        this.setLoadEvent(currLoadEvent);
-        this.hideLoadPreloader();
-        
-    }
-
-    setStageEvent(evt) {
-        this.stageEvMsg.textContent = evt.summary;
-        const evStart = new Date(evt.start);
-        const evEnd = new Date(evt.end);
-        if (evt.start != undefined && evt.end != undefined) {
-            if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
-                // update Сейчас on Далее;
-                this.stageEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
-            } else {
-                this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
-            }
-        } else {
-            this.stageEvTime.textContent = "Сейчас: ";
+        const todayStageEvents = this.getTodayEvents(allStageEvents, todayDate);
+        const currStageEvent = this.getCurrentEvent(todayStageEvents, todayDate);
+        if (!currStageEvent) {
+            const nextStageEvent = this.getNextEvent(todayStageEvents, todayDate);
+            // console.log("Next stage: ", nextStageEvent);
+            this.setEvent(nextStageEvent ? nextStageEvent : noData, todayDate)
         }
-    }
+        this.setEvent(currStageEvent ? currStageEvent : noData, todayDate, "stage");
+        this.hidePreloader("stage");
 
-    setTehEvent(evt) {
-        this.tehEvMsg.textContent = evt.summary;
-        const evStart = new Date(evt.start);
-        const evEnd = new Date(evt.end);
-        if (evt.start != undefined && evt.end != undefined) {
-            if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
-                // update Сейчас on Далее;
-                this.tehEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
-            } else {
-                this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
-            }
-        } else {
-            this.tehEvTime.textContent = "Сейчас: ";
+        const todayTehEvents = this.getTodayEvents(allTehEvents, todayDate);
+        const currTehEvent = this.getCurrentEvent(todayTehEvents, todayDate);
+        if (!currTehEvent) {
+            const nextTehEvent = this.getNextEvent(todayTehEvents, todayDate);
+            // console.log("Next teh: ", nextTehEvent);
+            this.setEvent(nextTehEvent ? nextTehEvent : noData, todayDate)
         }
+        this.setEvent(currTehEvent ? currTehEvent : noData, todayDate, "tech");
+        this.hidePreloader("tech");
+
+        const todayLoadEvents = this.getTodayEvents(allLoadEvents, todayDate);
+        const currLoadEvent = this.getCurrentEvent(todayLoadEvents, todayDate);
+        if (!currLoadEvent) {
+            const nextLoadEvent = this.getNextEvent(todayLoadEvents, todayDate);
+            // console.log("Next load: ", nextLoadEvent);
+            this.setEvent(nextLoadEvent ? nextLoadEvent : noData, todayDate)
+        }
+        this.setEvent(currLoadEvent ? currLoadEvent : noData, todayDate, "load");
+        this.hidePreloader("load");
+
     }
 
-    setLoadEvent(evt) {
-        this.loadEvMsg.textContent = evt.summary;
-        
-        const evStart = new Date(evt.start);
-        const evEnd = new Date(evt.end);
+    setEvent(evt, todayDate, evType) {
+        if (evType == "stage") {
+            this.stageEvMsg.textContent = evt.summary;
+        } else if (evType == "tech") {
+            this.tehEvMsg.textContent = evt.summary;
+        } else if (evType == "load") {
+            this.loadEvMsg.textContent = evt.summary;
+        }
 
         if (evt.start != undefined && evt.end != undefined) {
-            if (new Date(evStart).getTime() > new Date(Date.now()).getTime()) {
-                // update Сейчас on Далее;
-                this.loadEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);;
+            if (new Date(evt.start).getTime() > todayDate.getTime()) {
+                if (evType == "stage") {
+                    this.stageEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end)
+                } else if (evType == "tech") {
+                    this.tehEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                } else if (evType == "load") {
+                    this.loadEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);;
+                }
             } else {
-                this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                if (evType == "stage") {
+                    this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
+                } else if (evType == "tech") {
+                    this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                } else if (evType == "load") {
+                    this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                }
             }
+
         } else {
-            this.loadEvTime.textContent = "Сейчас: ";
+            if (evType == "stage") {
+                this.stageEvTime.textContent = "Сейчас: ";
+            } else if (evType == "tech") {
+                this.tehEvTime.textContent = "Сейчас: ";
+            } else if (evType == "load") {
+                this.loadEvTime.textContent = "Сейчас: ";
+            }
         }
     }
 
@@ -196,7 +190,7 @@ class Calendars {
         time = new Date(time);
         let timeStr = time.getHours();
         let minutes = time.getMinutes();
-        if ( minutes.toString().length == 1) {
+        if (minutes.toString().length == 1) {
             minutes = minutes.toString() + "0";
         }
         timeStr += ":" + minutes;

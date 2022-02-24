@@ -23,7 +23,14 @@ class iCal {
         const todayDate = new Date(Date.now());
         const todayEvents = this.getTodayEvents(allEvents, todayDate);
         const currEvent = this.getCurrEvent(todayEvents, todayDate);
-        this.setEvent(currEvent ? currEvent : { summary: "Нет данных" }, todayDate);
+        const noData = { summary: "Нет данных" };
+
+        if (!currEvent) {
+            const nextEvent = this.getNextEvent(todayEvents, todayDate);
+            console.log("Next: ", nextEvent);
+            this.setEvent(nextEvent ? nextEvent : noData, todayDate)
+        }
+        this.setEvent(currEvent ? currEvent : noData, todayDate);
     }
 
     async getCalEvents() {
@@ -63,19 +70,18 @@ class iCal {
         return false;
     }
 
-    detectNextEvent(todayEvents, todayDate) {
-        let hour = todayDate.getTime();
+    getNextEvent(todayEvents, todayDate) {
+        let datePlusHour = todayDate.getTime();
 
         for (let b = 0; b < 5; b++) {
-            hour += 1000 * 60 * 60;
+            datePlusHour += 1000 * 60 * 60;
             for (let i = 0; i < todayEvents.length; i++) {
                 const evStart = new Date(todayEvents[i].start).getTime();
                 const evEnd = new Date(todayEvents[i].end).getTime();
-                const currTime = today.getTime();
 
-                console.log(evStart < currTime + hour);
+                console.log(evStart < datePlusHour);
 
-                if (evStart < (currTime + hour) && evEnd > (currTime + hour)) {
+                if (evStart < datePlusHour && evEnd > datePlusHour) {
                     return todayEvents[i];
                 }
 
@@ -94,7 +100,6 @@ class iCal {
 
         if (evt && (evt.summary != "Нет данных")) {
             if (new Date(evt.start).getTime() > todayDate.getTime()) {
-                // update Сейчас on Далее;
                 this.nowOrNext.textContent = "Далее на сцене:";
             } else {
                 this.nowOrNext.textContent = "Сейчас на сцене:";

@@ -1,7 +1,4 @@
 class Performance {
-
-  // const n = this;
-  // (this.BASE_URL = e),
   constructor(e = "", edit = "false") {
 
     this.edit = edit;
