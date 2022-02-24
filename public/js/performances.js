@@ -490,7 +490,7 @@ class Performance {
       let input3 = document.createElement("input");
       input3.setAttribute("type", "number");
       input3.setAttribute("class", "meters");
-      input3.value = points.rightSide[t].meters;
+      input3.value = points.rightSide[rightPoint].meters;
       td2.appendChild(input3);
 
       let input4 = document.createElement("input");
@@ -661,7 +661,7 @@ class Performance {
             }
             this.pointsData.rightSide["point" + (e + 1)].meters = right[e].childNodes[o].firstChild.value;
           } else if (o == 3) {
-            this.pointsData.rightSide["point" + (e + 1)].machine = t[e].childNodes[o].firstChild.value;
+            this.pointsData.rightSide["point" + (e + 1)].machine = right[e].childNodes[o].firstChild.value;
           }
         }
       }

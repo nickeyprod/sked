@@ -704,6 +704,18 @@
   .close-span {
     margin-left: 97%;
   }
+
+  .meters {
+    width: 60px;
+  }
+
+  .machine {
+    width: 40px;
+  }
+
+  .lines {
+    width: 40px;
+  }
 }
 .german-notations-table {
   width: 100%;
