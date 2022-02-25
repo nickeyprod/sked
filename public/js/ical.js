@@ -27,8 +27,7 @@ class iCal {
 
         if (!currEvent) {
             const nextEvent = this.getNextEvent(todayEvents, todayDate);
-            console.log("Next: ", nextEvent);
-            this.setEvent(nextEvent ? nextEvent : noData, todayDate)
+            return this.setEvent(nextEvent ? nextEvent : noData, todayDate)
         }
         this.setEvent(currEvent ? currEvent : noData, todayDate);
     }
@@ -48,7 +47,8 @@ class iCal {
 
         for (let key in evts) {
             const evStartDate = new Date(evts[key].start);
-            if (evStartDate.getFullYear() == todayDate.getFullYear() && evStartDate.getMonth() == todayDate.getMonth() && evStartDate.getDate() == todayDate.getDate()) {
+            const evEndDate = new Date(evts[key].end);
+            if (evStartDate.getFullYear() == todayDate.getFullYear() && evStartDate.getMonth() == todayDate.getMonth() && (evStartDate.getDate() == todayDate.getDate() || evEndDate.getDate() == todayDate.getDate())) {
                 todayEvts.push(evts[key]);
             }
         }
@@ -79,8 +79,6 @@ class iCal {
                 const evStart = new Date(todayEvents[i].start).getTime();
                 const evEnd = new Date(todayEvents[i].end).getTime();
 
-                console.log(evStart < datePlusHour);
-
                 if (evStart < datePlusHour && evEnd > datePlusHour) {
                     return todayEvents[i];
                 }
@@ -95,7 +93,6 @@ class iCal {
     }
 
     setEvent(evt, todayDate) {
-        
         clearInterval(this.intId);
 
         if (evt && (evt.summary != "Нет данных")) {

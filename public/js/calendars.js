@@ -65,7 +65,8 @@ class Calendars {
 
         for (let key in evts) {
             const evStart = new Date(evts[key].start);
-            if (evStart.getFullYear() == todayDate.getFullYear() && evStart.getMonth() == todayDate.getMonth() && evStart.getDate() == todayDate.getDate()) {
+            const evEnd = new date(evts[key].end);
+            if (evStart.getFullYear() == todayDate.getFullYear() && evStart.getMonth() == todayDate.getMonth() && (evStart.getDate() == todayDate.getDate() || evEnd.getDate() == todayDate.getDate())) {
                 todayEvents.push(evts[key]);
             }
         }
@@ -119,8 +120,7 @@ class Calendars {
         const currStageEvent = this.getCurrentEvent(todayStageEvents, todayDate);
         if (!currStageEvent) {
             const nextStageEvent = this.getNextEvent(todayStageEvents, todayDate);
-            // console.log("Next stage: ", nextStageEvent);
-            this.setEvent(nextStageEvent ? nextStageEvent : noData, todayDate)
+            return this.setEvent(nextStageEvent ? nextStageEvent : noData, todayDate)
         }
         this.setEvent(currStageEvent ? currStageEvent : noData, todayDate, "stage");
         this.hidePreloader("stage");
@@ -129,8 +129,7 @@ class Calendars {
         const currTehEvent = this.getCurrentEvent(todayTehEvents, todayDate);
         if (!currTehEvent) {
             const nextTehEvent = this.getNextEvent(todayTehEvents, todayDate);
-            // console.log("Next teh: ", nextTehEvent);
-            this.setEvent(nextTehEvent ? nextTehEvent : noData, todayDate)
+            return this.setEvent(nextTehEvent ? nextTehEvent : noData, todayDate)
         }
         this.setEvent(currTehEvent ? currTehEvent : noData, todayDate, "tech");
         this.hidePreloader("tech");
@@ -139,8 +138,7 @@ class Calendars {
         const currLoadEvent = this.getCurrentEvent(todayLoadEvents, todayDate);
         if (!currLoadEvent) {
             const nextLoadEvent = this.getNextEvent(todayLoadEvents, todayDate);
-            // console.log("Next load: ", nextLoadEvent);
-            this.setEvent(nextLoadEvent ? nextLoadEvent : noData, todayDate)
+            return this.setEvent(nextLoadEvent ? nextLoadEvent : noData, todayDate)
         }
         this.setEvent(currLoadEvent ? currLoadEvent : noData, todayDate, "load");
         this.hidePreloader("load");
