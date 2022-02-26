@@ -174,6 +174,7 @@ router.get("/sked", function(req, res, next) {
         var error = new Error("Error searching sked");
         return next(error);
       }
+      console.log(skeds);
       return res.render("sked", {title: "График дежурств", workers: workers, skeds: skeds})
     });
   });

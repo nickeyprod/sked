@@ -1,8 +1,5 @@
 extends ./layout
 
-block head
-  script(src="/static/js/skedjs.js" type="text/javascript")
-
 block content
   div.info-msg-done(id="info-msg-done")
   br
@@ -51,8 +48,7 @@ block content
             button(title="Сохранить данный график в базу" class="new-sked-bt" id="save-sked-bt" style="float:right;display:none;")
   script.
     window.onload = function() {
-      var skedApp = new SkedApp();
+      const skedApp = new SkedApp();
       skedApp.workers = !{JSON.stringify(workers)};
       skedApp.skeds = !{JSON.stringify(skeds)};
-      skedApp.init();
     };

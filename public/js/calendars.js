@@ -148,19 +148,19 @@ class Calendars {
         if (evt.start != undefined && evt.end != undefined) {
             if (new Date(evt.start).getTime() > todayDate.getTime()) {
                 if (evType == "stage") {
-                    this.stageEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end)
+                    this.stageEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
                 } else if (evType == "tech") {
-                    this.tehEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                    this.tehEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
                 } else if (evType == "load") {
-                    this.loadEvTime.textContent = "Далее: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);;
+                    this.loadEvTime.textContent = "Далее: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
                 }
             } else {
                 if (evType == "stage") {
                     this.stageEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
                 } else if (evType == "tech") {
-                    this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                    this.tehEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
                 } else if (evType == "load") {
-                    this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evStart) + " - " + this.getRusTime(evEnd);
+                    this.loadEvTime.textContent = "Сейчас: " + this.getRusTime(evt.start) + " - " + this.getRusTime(evt.end);
                 }
             }
 
