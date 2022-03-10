@@ -1089,6 +1089,25 @@
     max-width: 720px;
   }
 }
+/* CSS FOR PLUG-SOCKETS.pug */
+
+.gnr-table {
+  width: 100%;
+  text-align: center;
+  font-size: 1.14em;
+  border-collapse: collapse;
+}
+
+.gnr-table th,
+.gnr-table td,
+.gnr-table tr {
+  border: 1px solid black;
+  padding: 6px 1px;
+}
+
+/* .gnr-table tr td:nth-child(odd) {
+    background-color: rgb(208, 238, 190);
+} */
 .prompt-contactors {
   width: 92%;
   border-radius: 25px;

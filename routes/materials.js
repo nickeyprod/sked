@@ -27,5 +27,10 @@ router.get("/lower-doors-lock", function(req, res, next) {
   return res.render("materials/lower-doors", {title: "Блокировка дверей трюма"});
 });
 
+// GET /materials/plug-sockets
+router.get("/plug-sockets", function(req, res, next) {
+  return res.render("materials/plug-sockets", {title: "Расположение гнрА"});
+});
+
 
 module.exports = router;
