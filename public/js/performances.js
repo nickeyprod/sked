@@ -678,13 +678,13 @@ class Performance {
 
     div.setAttribute("class", "act-line");
     sp.setAttribute("class", "perf-act");
-    sp.setAttribute("id", "perf-act" + t);
+    sp.setAttribute("id", "perf-act" + num);
     sp.textContent = num + ":";
     inpt.setAttribute("type", "text");
     inpt.setAttribute("class", "act-time");
     inpt.setAttribute("id", "act-time" + num);
     inpt.setAttribute("placeholder", "1ч 15мин");
-    sp2.setAttribute("id", "del-act-btn" + t);
+    sp2.setAttribute("id", "del-act-btn" + num);
     sp2.setAttribute("class", "del-act-btn");
     sp2.textContent = "X";
     sp2.onclick = () => {

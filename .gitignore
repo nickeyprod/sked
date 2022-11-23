@@ -1,3 +1,4 @@
 node_modules
 gitignore
 secret.json
+.DS_Store
