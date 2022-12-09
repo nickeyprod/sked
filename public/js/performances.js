@@ -106,7 +106,9 @@ class Performance {
             this.preloader.style.display = "block";
 
             const resp = await request("/perf-search", "POST", query);
-            var message
+            
+            var message;
+
             if (resp.statusText && resp.statusText != "") {
               message = resp.statusText
             } else {
@@ -762,8 +764,15 @@ class Performance {
           }
 
           const resp = await request("/performances", "POST", data);
+          var message;
 
-          if (resp.statusText == "OK") {
+          if (resp.statusText && resp.statusText != "") {
+            message = resp.statusText
+          } else {
+            message = resp.headers.get("statusmessage")
+          }
+
+          if (message == "OK") {
             alert("Спектакль обновлен успешно");
             this.backgroundModal.style.display = "none";
             window.location.reload();
@@ -786,7 +795,16 @@ class Performance {
           }
 
           const resp = await request("/performances", "POST", data);
-          if (resp.statusText == "OK") {
+
+          var message;
+
+          if (resp.statusText && resp.statusText != "") {
+            message = resp.statusText
+          } else {
+            message = resp.headers.get("statusmessage")
+          }
+
+          if (message == "OK") {
             alert("Новый спектакль успешно добавлен");
             window.location.reload();
           }
@@ -802,7 +820,16 @@ class Performance {
         action: action
       }
       let resp = await request("/performances", "POST", dt);
-      if (resp.statusText == "OK") {
+      
+      var message;
+
+      if (resp.statusText && resp.statusText != "") {
+        message = resp.statusText
+      } else {
+        message = resp.headers.get("statusmessage")
+      }
+
+      if (message == "OK") {
         alert("Спектакль успешно удалён");
         window.location.reload();
         return;
