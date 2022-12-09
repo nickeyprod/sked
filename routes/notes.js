@@ -18,7 +18,6 @@ router.get("/upload-ten", function (req, res, next) {
   } else {
     sort = -1;
   }
-  console.log(req.query);
   Note.aggregate([{ $match: {} }, {
     $lookup: {
       from: "users",

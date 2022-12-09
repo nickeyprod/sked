@@ -106,8 +106,6 @@ class Performance {
             this.preloader.style.display = "block";
 
             const resp = await request("/perf-search", "POST", query);
-            print(resp)
-            print("=====")
             if (resp.statusText == "OK") {
               const data = await resp.json();
               this.fillSearchResults(data.perfs);
@@ -695,7 +693,7 @@ class Performance {
     div.appendChild(sp);
     div.appendChild(inpt);
     div.appendChild(sp2);
-    this.perfActs.insertBefore(div, this.perfActs.childNodes[e]);
+    this.perfActs.insertBefore(div, this.perfActs.childNodes[num]);
   };
 
   checkActs = () => {

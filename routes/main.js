@@ -157,7 +157,7 @@ router.post("/perf-search", function(req, res, next) {
     }
     res.status(200);
     res.statusMessage = "OK";
-    return res.send({perfs: perfs});
+    return res.send({perfs: perfs})
   });
 });
 
