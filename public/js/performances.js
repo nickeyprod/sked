@@ -106,7 +106,14 @@ class Performance {
             this.preloader.style.display = "block";
 
             const resp = await request("/perf-search", "POST", query);
-            if (resp.statusText == "OK") {
+            var message
+            if (resp.statusText && resp.statusText != "") {
+              message = resp.statusText
+            } else {
+              message = resp.headers.get("statusmessage")
+            }
+
+            if (message == "OK") {
               const data = await resp.json();
               this.fillSearchResults(data.perfs);
               this.preloader.style.display = "none";

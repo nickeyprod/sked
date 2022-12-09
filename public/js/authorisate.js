@@ -27,7 +27,7 @@ class Authorisate {
     if (resp.statusText && resp.statusText != "") {
       message = resp.statusText
     } else {
-      message = resp.headers.get("statusText")
+      message = resp.headers.get("statusmessage")
     }
 
     if (message == "Check login and password") {
