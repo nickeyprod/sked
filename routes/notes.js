@@ -29,6 +29,7 @@ router.get("/upload-ten", function (req, res, next) {
     if (err) {
       res.status(500);
       res.statusMessage = "Error during searching notes";
+      res.setHeader("statusMessage", "Error during searching notes");
       return res.send();
     }
 
@@ -44,6 +45,7 @@ router.post("/publish-note", mid.authorised, function (req, res, next) {
   if (!text) {
     res.status(500);
     res.statusMessage = "No message text found";
+    res.setHeader("statusMessage", "No message text found");
     return res.send();
   }
 
@@ -51,10 +53,12 @@ router.post("/publish-note", mid.authorised, function (req, res, next) {
     if (err) {
       res.status(500);
       res.statusMessage = "Error during creating the note";
+      res.setHeader("statusMessage", "Error during creating the note");
       return res.send();
     }
     res.status(200);
     res.statusMessage = "Published";
+    res.setHeader("statusMessage", "Published");
     res.send();
   });
 });
@@ -67,6 +71,7 @@ router.post("/vote", mid.authorised, function (req, res, next) {
   if (!typeOfVote || !noteId) {
     res.status(500);
     res.statusMessage = "Bad request";
+    res.setHeader("statusMessage", "Bad request");
     return res.send();
   }
 
@@ -82,6 +87,7 @@ router.post("/vote", mid.authorised, function (req, res, next) {
     if (err) {
       res.status(500);
       res.statusMessage = "Couldn't update vote";
+      res.setHeader("statusMessage", "Couldn't update vote");
       return res.send();
     }
 
@@ -103,17 +109,20 @@ router.post("/vote", mid.authorised, function (req, res, next) {
       if (err) {
         res.status(500);
         res.statusMessage = "Couldn't update vote";
+        res.setHeader("statusMessage", "Couldn't update vote");
         return res.send();
       }
       Note.findById(noteId, (err, note) => {
         if (err) {
           res.status(500);
           res.statusMessage = "Couldn't update vote";
+          res.setHeader("statusMessage", "Couldn't update vote");
           return res.send();
         }
 
         res.status(200);
         res.statusMessage = "OK";
+        res.setHeader("statusMessage", "OK");
         res.send({ note: note });
       });
     });

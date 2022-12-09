@@ -23,11 +23,17 @@ class Authorisate {
     }
 
     const resp = await request("/auth", "POST", authData);
-    
-    if (resp.statusText == "Check login and password") {
+    var message;
+    if (resp.statusText && resp.statusText != "") {
+      message = resp.statusText
+    } else {
+      message = resp.headers.get("statusText")
+    }
+
+    if (message == "Check login and password") {
       alert("Неверный логин или пароль");
       return;
-    } else if (resp.statusText == "Authorised") {
+    } else if (message == "Authorised") {
       alert("Авторизация успешна и будет действительна в течение 30 дней");
       window.location.href = "/performances";
       return;

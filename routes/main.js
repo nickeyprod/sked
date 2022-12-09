@@ -86,6 +86,7 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
     if(!name || !type || !acts) {
       res.status(500);
       res.statusMessage = "Incosistent data";
+      res.setHeader("statusMessage", "Incosistent data");
       return res.send();
     }
   }
@@ -101,10 +102,12 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
         if(err) {
           res.status(500);
           res.statusMessage = "Error during updating performance";
+          res.setHeader("statusMessage", "Error during updating performance");
           return res.send()
         }
         res.status(200);
         res.statusMessage = "OK";
+        res.setHeader("statusMessage", "OK");
         return res.send();
       });
   } else if(perfId && action === "remove") {
@@ -112,10 +115,12 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during deleting performance";
+        res.setHeader("statusMessage", "Error during updating performance");
         return res.send()
       }
       res.status(200);
       res.statusMessage = "OK";
+      res.setHeader("statusMessage", "OK");
       return res.send();
     });
   } else if(!perfId && action === "create") {
@@ -129,10 +134,12 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
         if(err) {
           res.status(500);
           res.statusMessage = "Error during creating performance";
+          res.setHeader("statusMessage", "Error during creating performance");
           return res.send();
         }
         res.status(200);
         res.statusMessage = "OK";
+        res.setHeader("statusMessage", "OK");
         return res.send();
       });
   }
@@ -144,6 +151,7 @@ router.post("/perf-search", function(req, res, next) {
   if(!req.body.query) {
     res.status(500);
     res.statusMessage = "Bad request, search query absent";
+    res.setHeader("statusMessage", "Bad request, search query absent");
     return res.send();
   }
   let query = new RegExp("^"+req.body.query, "i");
@@ -153,10 +161,12 @@ router.post("/perf-search", function(req, res, next) {
   
       res.status(500);
       res.statusMessage = "Error during perfomance search";
+      res.setHeader("statusMessage", "Error during perfomance search");
       return res.send();
     }
     res.status(200);
     res.statusMessage = "OK";
+    res.setHeader("statusMessage", "OK");
     return res.send({perfs: perfs})
   });
 });
@@ -188,6 +198,7 @@ router.post("/sked", function(req, res, next) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching last sked";
+        res.setHeader("statusMessage", "Error during searching last sked");
         return res.send();
       }
       if (sked.length == 0) {
@@ -198,6 +209,7 @@ router.post("/sked", function(req, res, next) {
         if(err) {
           res.status(500);
           res.statusMessage = "Error during searching previous sked";
+          res.setHeader("statusMessage", "Error during searching previous sked");
           return res.send();
         }
         // find next
@@ -205,6 +217,7 @@ router.post("/sked", function(req, res, next) {
           if(err) {
             res.status(500);
             res.statusMessage = "Error during searching previous sked";
+            res.setHeader("statusMessage", "Error during searching previous sked");
             return res.send();
           }
           const prev = prevSked ? true : false;
@@ -214,6 +227,7 @@ router.post("/sked", function(req, res, next) {
           var calendates = await cDates.getDates(new Date(sked[0].from));
             res.status(200);
             res.statusMessage = "FOUND";
+            res.setHeader("statusMessage", "FOUND");
             return res.send({sked: sked[0], dates:calendates, prev: prev, next: next});
           };
           mainAsync();
@@ -227,6 +241,7 @@ router.post("/sked", function(req, res, next) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching sked";
+        res.setHeader("statusMessage", "Error during searching sked");
         return res.send();
       }
       // find previous
@@ -234,6 +249,7 @@ router.post("/sked", function(req, res, next) {
         if(err) {
           res.status(500);
           res.statusMessage = "Error during searching previous sked";
+          res.setHeader("statusMessage", "Error during searching previous sked");
           return res.send();
         }
         // find next
@@ -241,6 +257,7 @@ router.post("/sked", function(req, res, next) {
           if(err) {
             res.status(500);
             res.statusMessage = "Error during searching previous sked";
+            res.setHeader("statusMessage", "Error during searching previous sked");
             return res.send();
           }
           const prev = prevSked ? true : false;
@@ -250,6 +267,7 @@ router.post("/sked", function(req, res, next) {
             var calendates = await cDates.getDates(new Date(sked.from));
             res.status(200);
             res.statusMessage = "FOUND";
+            res.setHeader("statusMessage", "FOUND");
             return res.send({sked: sked, dates:calendates, prev: prev, next: next});
           };
           mainAsync();
@@ -262,6 +280,7 @@ router.post("/sked", function(req, res, next) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching sked";
+        res.setHeader("statusMessage", "Error during searching sked");
         return res.send();
       }
       // if no sked found, return just dates
@@ -271,6 +290,7 @@ router.post("/sked", function(req, res, next) {
           var calendates = await cDates.getDates(new Date(req.body.from));
           res.status(200);
           res.statusMessage = "FOUND";
+          res.setHeader("statusMessage", "FOUND");
           return res.send({from: req.body.from, dates: calendates});
         };
         mainAsync();
@@ -280,6 +300,7 @@ router.post("/sked", function(req, res, next) {
           if(err) {
             res.status(500);
             res.statusMessage = "Error during searching previous sked";
+            res.setHeader("statusMessage", "Error during searching previous sked");
             return res.send();
           }
           // find next
@@ -287,6 +308,7 @@ router.post("/sked", function(req, res, next) {
             if(err) {
               res.status(500);
               res.statusMessage = "Error during searching previous sked";
+              res.setHeader("statusMessage", "Error during searching previous sked");
               return res.send();
             }
             const prev = prevSked ? true : false;
@@ -296,6 +318,7 @@ router.post("/sked", function(req, res, next) {
               var calendates = await cDates.getDates(new Date(sked.from));
               res.status(200);
               res.statusMessage = "FOUND";
+              res.setHeader("statusMessage", "FOUND");
               return res.send({sked: sked, dates:calendates, prev: prev, next: next});
             };
             mainAsync();
@@ -313,6 +336,7 @@ router.post("/save-sked", function(req, res, next) {
     if(err) {
       res.status(500);
       res.statusMessage = "Error during searching by date";
+      res.setHeader("statusMessage", "Error during searching by date");
       return res.send();
     }
     if(sked.length == 0) {
@@ -320,10 +344,12 @@ router.post("/save-sked", function(req, res, next) {
         if(err) {
           res.status(500);
           res.statusMessage = "Error during saving sked";
+          res.setHeader("statusMessage", "Error during saving sked");
           return res.send();
         }
         res.status(200);
         res.statusMessage = "OK";
+        res.setHeader("statusMessage", "OK");
         return res.send();
       });
     } else {
@@ -331,10 +357,12 @@ router.post("/save-sked", function(req, res, next) {
         if(err) {
           res.status(500);
           res.statusMessage = "Error during updating sked";
+          res.setHeader("statusMessage", "Error during updating sked");
           return res.send();
         }
         res.status(200);
         res.statusMesssage = "OK";
+        res.setHeader("statusMessage", "OK");
         return res.send();
       });
     }
@@ -350,18 +378,21 @@ router.get("/auth", mid.notAuthorised, function(req, res, next) {
 router.post("/auth", mid.notAuthorised, function(req, res, next) {
   if(!req.body.login || !req.body.pass) {
     res.statusMessage = "Login or password is absent";
+    res.setHeader("statusMessage", "Login or password is absent");
     return res.send();
   }
   User.authorize(req.body.login, req.body.pass, function(err, user) {
     if(err || !user) {
       res.status(500);
       res.statusMessage = "Check login and password";
+      res.setHeader("statusMessage", "Check login and password");
       return res.send();
     }
     Admin.findOne({userId: user._id}, function(err, adminFound) {
       if(err) {
         res.status(500);
         res.statusMessage = "Error during searching user data";
+        res.setHeader("statusMessage", "Error during searching user data");
         return res.send();
       } 
       if(adminFound && adminFound != null) {
@@ -372,6 +403,7 @@ router.post("/auth", mid.notAuthorised, function(req, res, next) {
 
       res.status(200);
       res.statusMessage = "Authorised";
+      res.setHeader("statusMessage", "Authorised");
       return res.send();
     });
   });
@@ -403,10 +435,12 @@ router.post("/authenticate", mid.notAuthorised, function(req, res, next) {
   if(!req.body.login || !req.body.pass1 || !req.body.pass2) {
     res.status(500);
     res.statusMessage = "Inconsistent data";
+    res.setHeader("statusMessage", "Inconsistent data");
     return res.send();
   } else if(req.body.pass1 !== req.body.pass2) {
     res.status(500);
     res.statusMessage = "Passwords mismatch";
+    res.setHeader("statusMessage", "Passwords mismatch");
     return res.send();
   }
   User.registerNew({username: req.body.login, pass: req.body.pass1}, function(err, user) {
@@ -414,14 +448,17 @@ router.post("/authenticate", mid.notAuthorised, function(req, res, next) {
       if (err.code == 11000) {
         res.status(500);
         res.statusMessage = "Duplicate";
+        res.setHeader("statusMessage", "Duplicate");
         return res.send();
       }
       res.status(500);
       res.statusMessage = "Error during authenticating";
+      res.setHeader("statusMessage", "Error during authenticating");
       return res.send();
     } 
     res.status(200);
     res.statusMessage = "Authenticated";
+    res.setHeader("statusMessage", "Authenticated");
     return res.send();
   });
 });
