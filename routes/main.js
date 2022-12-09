@@ -54,7 +54,8 @@ router.get("/performances", function(req, res, next) {
 router.post("/performances", mid.isAdmin, function(req, res, next) {
   if (req.session.admin !== true) {
     res.status(403);
-    res.statusMessage = "Forbidden"; 
+    res.statusMessage = "Forbidden";
+    res.setHeader("statusMessage", "Forbidden");
     return res.send();
   }
   const name = req.body.name;
