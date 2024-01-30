@@ -42,7 +42,7 @@ app.use(session({
 }));
 
 // use favicon.ico
-app.use(favicon(path.join(__dirname, 'public','imgs', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(function(req, res, next) {
   res.locals.userId = req.session.userId;
