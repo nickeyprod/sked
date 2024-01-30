@@ -7,7 +7,7 @@ const {task, src, dest, watch, series} = require('gulp'),
       rename = require('gulp-rename'),
       del = require('del');
 
-const CSSwatcher = watch(['!public/css/layout.css', 'public/css/*.css']);
+const CSSwatcher = watch(['public/css/*.css', '!public/css/layout.css']);
 const JSwatcher = watch(['!public/js/main.js', '!public/js/distr/', 'public/js/*.js']);
 
 function concatCSS(cb)  {

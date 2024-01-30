@@ -164,7 +164,7 @@
 }
 
 .back-of-search {
-  background-image: url("../../../../../static/imgs/backgr-bsh.jpg");
+  background-image: url("/static/imgs/backgr-bsh.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -1153,6 +1153,16 @@
     margin: 30px auto;
     font-size: 1.2em;
   }
+}
+/* CSS FOR REFU-RD52-PARAMETRIZATION.pug */
+
+.rd52-desc {
+  font-size: 1.3em;
+}
+
+.rd52-desc ol li {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .event-container {
   display: flex;

@@ -21,13 +21,13 @@ mongoose.connect(mongo_uri, {
   useUnifiedTopology: true
 });
 
-//errors catching
+// errors catching
 const db = mongoose.connection;
 
-//add an error handler
+// add an error handler
 db.on('error', console.error.bind(console, 'connection error:'));
 
-//use sessions for tracking logins
+// use sessions for tracking logins
 app.use(session({
   secret: "lkjlkfghw7yef9huoaps;fkljnaeirgyuhhfdd2e2gitdv/.,kj",
   resave: true,
@@ -41,8 +41,8 @@ app.use(session({
   })
 }));
 
-//use favicon.ico
-// app.use(favicon(path.join(__dirname, 'public','imgs','sett.svg')));
+// use favicon.ico
+app.use(favicon(path.join(__dirname, 'public','imgs','sett.svg')));
 
 app.use(function(req, res, next) {
   res.locals.userId = req.session.userId;

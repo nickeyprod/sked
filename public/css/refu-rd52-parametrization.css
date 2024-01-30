@@ -1,0 +1,10 @@
+/* CSS FOR REFU-RD52-PARAMETRIZATION.pug */
+
+.rd52-desc {
+    font-size: 1.3em;
+}
+
+.rd52-desc ol li {
+    margin-top: 10px;
+    margin-bottom: 10px
+}

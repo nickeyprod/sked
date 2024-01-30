@@ -32,5 +32,10 @@ router.get("/plug-sockets", function(req, res, next) {
   return res.render("materials/plug-sockets", {title: "Расположение гнрА"});
 });
 
+// GET /materials/refu-rd52-parametrization
+router.get("/refu-rd52-parametrization", function(req, res, next) {
+  return res.render("materials/refu-rd52-parametrization", {title: "Параметризация REFU RD52"});
+});
+
 
 module.exports = router;
