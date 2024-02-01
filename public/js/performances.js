@@ -557,7 +557,7 @@ class Performance {
 
     // n - point
     for (const leftPoint in points.leftSide) {
-      trLeft = document.createElement("tr");
+      trLeft = document.createElement("tr"); 
       trLeft.appendChild(document.createElement("td"));
       td1 = document.createElement("td");
       td2 = document.createElement("td");
