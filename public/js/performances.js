@@ -374,6 +374,10 @@ class Performance {
     this.perfType.value = perf.type;
     this.perfUrl.value = perf.imgUrl;
 
+    if (perf.isPointsApproved) {
+      this.perfPointsApprovedCheckbox.checked = true;
+    }
+
     if (perf.acts.length > 0) {
       // let t, o, i, s, l;
       let actLine, sp1, inpt, sp2, btn;
