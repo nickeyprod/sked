@@ -259,6 +259,21 @@
     margin: 12px 0 4px
 }
 
+.notes p {
+    margin-top: 6px;
+}
+
+.approved-checkmark {
+  width: 24px;
+  margin-bottom: -6px;
+  margin-left: 10px;
+}
+
+.approved-text {
+    font-style: italic;
+    font-size: 0.78em;
+}
+
 .break-card {
     width: 87%;
     border-color: #fff;
@@ -398,12 +413,29 @@
 }
 
 .showPoints-btn {
+    display: block;
     background-color: #f0f8ff;
     padding: 4px 11px;
+    margin-top: 6px;
     border-radius: 4px;
     margin-left: 4px;
     color: #4c3f3f;
     cursor: pointer
+}
+
+.showPoints-btn-edit {
+    background-color: #f0f8ff;
+    padding: 4px 11px;
+    margin-top: 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+    color: #4c3f3f;
+    cursor: pointer
+}
+
+.points-approved-div {
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .showPoints-btn:hover {
@@ -523,7 +555,7 @@
         width: 80%;
         max-width: 1023px;
         margin: 0 auto;
-        padding: 28px
+        padding: 28px;
     }
     .performance-card {
         margin: 2% auto;
@@ -548,25 +580,25 @@
         flex-direction: column;
     }
     .notes {
-        margin-top: 20px
+        margin-top: 12px;
     }
     .user-points-modal {
         margin-top: 8%;
         width: 80%;
         max-width: 1023px;
-        padding: 34px
+        padding: 34px;
     }
     .preloader {
         position: absolute;
         width: 12%;
         top: 38%;
-        left: 42%
+        left: 42%;
     }
     .edit-btn {
-        margin-left: 70%
+        margin-left: 70%;
     }
     .close-span {
-        margin-left: 97%
+        margin-left: 97%;
     }
 
     .meters {

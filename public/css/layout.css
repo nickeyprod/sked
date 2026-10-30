@@ -382,6 +382,21 @@
   margin: 12px 0 4px;
 }
 
+.notes p {
+  margin-top: 6px;
+}
+
+.approved-checkmark {
+  width: 24px;
+  margin-bottom: -6px;
+  margin-left: 10px;
+}
+
+.approved-text {
+  font-style: italic;
+  font-size: 0.78em;
+}
+
 .break-card {
   width: 87%;
   border-color: #fff;
@@ -525,12 +540,29 @@
 }
 
 .showPoints-btn {
+  display: block;
   background-color: #f0f8ff;
   padding: 4px 11px;
+  margin-top: 6px;
   border-radius: 4px;
   margin-left: 4px;
   color: #4c3f3f;
   cursor: pointer;
+}
+
+.showPoints-btn-edit {
+  background-color: #f0f8ff;
+  padding: 4px 11px;
+  margin-top: 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+  color: #4c3f3f;
+  cursor: pointer;
+}
+
+.points-approved-div {
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 .showPoints-btn:hover {
@@ -680,7 +712,7 @@
   }
 
   .notes {
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   .user-points-modal {

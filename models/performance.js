@@ -20,6 +20,11 @@ const PerformanceSchema = new mongoose.Schema({
     default: {},
     required: false
   },
+  isPointsApproved: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
   notes: {
     type: String,
     required: false

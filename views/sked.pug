@@ -24,6 +24,7 @@ block content
       thead
         tr
           th №
+          th Сотрудник
           th.weekdate
           th.weekdate
           th.weekdate
@@ -39,6 +40,14 @@ block content
           th.weekdate
           th.weekdate
       tbody(id="sked-main-tb")
+        each worker, i in workers
+          tr 
+            td=i + 1 
+            td=worker.username
+        tr 
+          td X
+          td Подрядчик
+        
       tfoot
         tr
           td(colspan="16" id="sked-main-foot")
@@ -46,9 +55,12 @@ block content
             button(title="Посмотреть следующий график" class="new-sked-bt" id="next-sked-bt" style="float:left;display:none;") Следующий график
             button(title="Создать новый (пустой) график дежурств" class="new-sked-bt" id="new-sked-bt" style="float:right;") Новый график
             button(title="Сохранить данный график в базу" class="new-sked-bt" id="save-sked-bt" style="float:right;display:none;")
+    .modal 
+      div Укажите диапазон
   script.
     window.onload = function() {
-      const skedApp = new SkedApp();
-      skedApp.workers = !{JSON.stringify(workers)};
-      skedApp.skeds = !{JSON.stringify(skeds)};
+      
+      const workers = !{JSON.stringify(workers)};
+      const skeds = !{JSON.stringify(skeds)};
+      const skedApp = new SkedApp(workers, skeds);
     };

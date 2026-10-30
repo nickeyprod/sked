@@ -16,6 +16,7 @@ class Performance {
     this.perfUrl = document.getElementById("perf-pic-url");
     this.perfActs = document.getElementById("perf-acts");
     this.perfPoints = document.getElementById("perf-points");
+    this.perfPointsApprovedCheckbox = document.getElementById("is-points-approved");
     this.perfNotes = document.getElementById("perf-notes");
     this.addActBtn = document.getElementById("add-act");
     this.searchResults = document.getElementById("search-results");
@@ -34,6 +35,7 @@ class Performance {
     this.cardPerfActs = document.getElementById("card-perf-acts");
     this.cardPerfPoints = document.getElementById("card-perf-points");
     this.cardPerfNotes = document.getElementById("card-perf-notes");
+    
     this.totalPointsSpan = document.getElementById("total-points-num");
 
     if (this.edit === "true") {
@@ -190,7 +192,8 @@ class Performance {
     });
   };
 
-  fillCardPerformancePoints = (points) => {
+  fillCardPerformancePoints = (points, isPointsApproved) => {
+    console.log("curr sp: approved:", isPointsApproved);
 
     if (points) {
 
@@ -208,6 +211,19 @@ class Performance {
       this.cardPerfPoints.appendChild(p),
         this.fillUserPointsTable(points);
 
+      if (isPointsApproved)  {
+        const approvedByAdminCheckmark = document.createElement('img');
+        approvedByAdminCheckmark.className = "approved-checkmark";
+        approvedByAdminCheckmark.src = '/static/imgs/ok.png';
+        approvedByAdminCheckmark.title = "Подтвержденная информация (спектакль с этими точками уже проходил).";
+        const spanAppr = document.createElement('span');
+        spanAppr.innerText = "Проверено";
+        spanAppr.className = "approved-text";
+          
+        p.appendChild(approvedByAdminCheckmark);
+        p.appendChild(spanAppr);
+      }
+      
       const btn = document.createElement("button");
       btn.setAttribute("class", "showPoints-btn");
       btn.textContent = "Просмотр";
@@ -216,14 +232,53 @@ class Performance {
         this.showUsualPointsTable();
       }
       this.cardPerfPoints.appendChild(btn);
-
-    } else if (this.cardPerfPoints.childNodes.length == 3) {
+    
+    } 
+    else if (this.cardPerfPoints.childNodes.length == 3) {
       this.cardPerfPoints.childNodes[1].remove();
       this.cardPerfPoints.childNodes[1].remove();
       const i = document.createElement("i");
       i.textContent = "– Отсутствуют";
-      this.cardPerfPoints.appendChild(i);
+      const div = document.createElement("div");
+      div.appendChild(i);
+
+      if (isPointsApproved == true) {
+        const approvedByAdminCheckmark = document.createElement('img');
+        approvedByAdminCheckmark.className = "approved-checkmark";
+        approvedByAdminCheckmark.src = '/static/imgs/ok.png';
+        approvedByAdminCheckmark.title = "Подтвержденная информация (спектакль с этими точками уже проходил).";
+        const spanAppr = document.createElement('span');
+        spanAppr.innerText = "Проверено";
+        spanAppr.className = "approved-text";
+          
+        div.appendChild(approvedByAdminCheckmark);
+        div.appendChild(spanAppr);
+        
+      }
+      this.cardPerfPoints.appendChild(div);
+    } else {
+      this.cardPerfPoints.childNodes[1].remove();
+      const i = document.createElement("i");
+      i.textContent = "– Отсутствуют";
+      const div = document.createElement("div");
+      div.appendChild(i);
+
+      if (isPointsApproved == true) {
+        const approvedByAdminCheckmark = document.createElement('img');
+        approvedByAdminCheckmark.className = "approved-checkmark";
+        approvedByAdminCheckmark.src = '/static/imgs/ok.png';
+        approvedByAdminCheckmark.title = "Подтвержденная информация (спектакль с этими точками уже проходил).";
+        const spanAppr = document.createElement('span');
+        spanAppr.innerText = "Проверено";
+        spanAppr.className = "approved-text";
+          
+        div.appendChild(approvedByAdminCheckmark);
+        div.appendChild(spanAppr);
+        
+      }
+      this.cardPerfPoints.appendChild(div);
     }
+      
   };
 
   fillPerformanceCard = (perf) => {
@@ -239,7 +294,8 @@ class Performance {
     }
 
     this.fillCardPerformanceActs(perf.type, perf.acts);
-    this.fillCardPerformancePoints(perf.points);
+    
+    this.fillCardPerformancePoints(perf.points, perf.isPointsApproved);
 
     if (perf.notes != "") {
       this.cardPerfNotes.innerHTML = perf.notes;
@@ -378,7 +434,7 @@ class Performance {
       span.setAttribute("class", "points-number");
       span.textContent = this.countPointsNum(points) + " шт.";
       let span2 = document.createElement("span"); // o
-      span2.setAttribute("class", "showPoints-btn");
+      span2.setAttribute("class", "showPoints-btn-edit");
       span2.textContent = "Редактор";
       span2.onclick = () => {
         this.fillPointsEditModal(points);
@@ -741,8 +797,8 @@ class Performance {
           perfType = this.perfType.value, // i
           perfUrl = this.perfUrl.value, // s
           acts = [], // l
-          perfNotes = this.perfNotes.value; // a
-
+          perfNotes = this.perfNotes.value, // a
+          isPointsApproved = this.perfPointsApprovedCheckbox.checked;
 
         for (let e = 0; e < this.perfActs.childNodes.length; e++) {
           if (this.perfActs.childNodes[e].childNodes[1].value.includes(",")) {
@@ -758,6 +814,7 @@ class Performance {
             imgUrl: perfUrl,
             acts: acts,
             points: this.pointsData,
+            isPointsApproved: isPointsApproved,
             notes: perfNotes,
             perfId: perfId,
             action: action
@@ -789,6 +846,7 @@ class Performance {
             imgUrl: perfUrl,
             acts: acts,
             points: this.pointsData,
+            isPointsApproved: isPointsApproved,
             notes: perfNotes,
             perfId: perfId,
             action: action

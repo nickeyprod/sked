@@ -35,6 +35,9 @@ block content
           div(class="perf-points" id="perf-points")
             span(class="no-points" id="no-points") - Нет
             button(id="add-points" class="add-mini-btn") +
+          .points-approved-div
+              input(type="checkbox" id="is-points-approved" name="isPointsApproved")
+              label(for="is-points-approved") Информация подтверждена
           label(for="perf-notes") Заметки:
           textarea(placeholder="Дополнительные заметки (необязательно)" id="perf-notes")
           button(id="save-perf-btn" class="save-perf-btn") Создать

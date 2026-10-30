@@ -63,6 +63,7 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
   const imgUrl = req.body.imgUrl;
   const acts = req.body.acts;
   var points = req.body.points; 
+  const isPointsApproved = req.body.isPointsApproved;
   const notes = req.body.notes;
   const perfId = req.body.perfId;
   const action = req.body.action;
@@ -83,6 +84,7 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
       }
     }
   }
+  
   if(action !== "remove") {
     if(!name || !type || !acts) {
       res.status(500);
@@ -92,6 +94,13 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
     }
   }
 
+  if(isPointsApproved != true && isPointsApproved != false) {
+    res.status(500);
+    res.statusMessage = "isPointsApproved should be boolean string";
+    res.setHeader("statusMessage", "Incosistent data");
+    return res.send();
+  }
+
   if(perfId && action === "update") {
     Performance.updateOne({_id: perfId}, {$set: {
       name: name, 
@@ -99,6 +108,7 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
       imgUrl: imgUrl,
       acts: acts, 
       points: points,
+      isPointsApproved: isPointsApproved,
       notes: notes}}, function(err, status) {
         if(err) {
           res.status(500);
@@ -131,6 +141,7 @@ router.post("/performances", mid.isAdmin, function(req, res, next) {
       imgUrl: imgUrl,
       acts: acts,
       points: points, 
+      isPointsApproved: isPointsApproved,
       notes: notes }, function(err, perf) {
         if(err) {
           res.status(500);
@@ -174,18 +185,20 @@ router.post("/perf-search", function(req, res, next) {
 
 // GET /sked
 router.get("/sked", function(req, res, next) {
+  console.log("get /sked");
   User.find({}, function(err, workers) {
     if(err) {
       var error = new Error("Error searching users");
       return next(error);
     }
+    console.log("Find users", workers);
     // find sked by date day
     Sked.find({}).limit(50).exec(function (err, skeds) {
       if(err) {
         var error = new Error("Error searching sked");
         return next(error);
       }
-      console.log(skeds);
+      console.log("SKEDS:", skeds);
       return res.render("sked", {title: "График дежурств", workers: workers, skeds: skeds})
     });
   });
